@@ -5,6 +5,11 @@ plugins {
 android {
     compileSdk 32
 
+    viewBinding {
+        enabled = true
+    }
+
+
     defaultConfig {
         applicationId "com.example.onfieldtbs_android"
         minSdk 21

@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">OnFieldTBS-android</string>
+    <string name="app_name">OnField TBS</string>
+    <!-- Our strings -->
+    <string name="title">OnField TBS</string>
 </resources>
