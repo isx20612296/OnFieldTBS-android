@@ -2,4 +2,8 @@
     <string name="app_name">OnField TBS</string>
     <!-- Our strings -->
     <string name="title">OnField TBS</string>
+    <string name="title_nav_incident">Incidencias</string>
+    <string name="title_nav_map">Mapa</string>
+    <string name="title_nav_profile">Mi Perfil</string>
+
 </resources>
