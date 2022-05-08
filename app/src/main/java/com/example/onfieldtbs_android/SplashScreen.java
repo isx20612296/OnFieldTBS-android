@@ -52,7 +52,7 @@ public class SplashScreen extends AppCompatActivity {
 
         // Go to login
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         },SPLASH_SCREEN);
 

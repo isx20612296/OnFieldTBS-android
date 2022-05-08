@@ -2,4 +2,8 @@
     <string name="app_name">OnField TBS</string>
     <!-- Our strings -->
     <string name="title">OnField TBS</string>
+    <string name="login_title">INICIAR SESIÓN</string>
+    <string name="login_email">Correo electrónico</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_button">ENTRAR</string>
 </resources>
