@@ -33,20 +33,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/loginEmailText"
+        android:id="@+id/loginUsernameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/open_sans"
-        android:text="@string/login_email"
+        android:text="@string/login_username"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTitle" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/loginEmailInputLayout"
+        android:id="@+id/loginUsernameInputLayout"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         android:layout_width="291dp"
@@ -56,11 +56,11 @@
         app:boxCornerRadiusBottomStart="30dp"
         app:boxCornerRadiusTopEnd="30dp"
         app:boxCornerRadiusTopStart="30dp"
-        app:layout_constraintStart_toStartOf="@+id/loginEmailText"
-        app:layout_constraintTop_toBottomOf="@+id/loginEmailText">
+        app:layout_constraintStart_toStartOf="@+id/loginUsernameText"
+        app:layout_constraintTop_toBottomOf="@+id/loginUsernameText">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/loginEmailEditText"
+            android:id="@+id/loginUsernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
@@ -79,7 +79,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEmailInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/loginUsernameInputLayout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/loginPasswordInputLayout"
