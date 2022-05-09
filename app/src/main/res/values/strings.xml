@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">OnField TBS</string>
-    <!-- Our strings -->
+    <!-- Title -->
     <string name="title">OnField TBS</string>
+    <!-- Login -->
     <string name="login_title">INICIAR SESIÓN</string>
     <string name="login_username">Usuario</string>
     <string name="login_password">Contraseña</string>
     <string name="login_button">ENTRAR</string>
+    <!-- Profile -->
+    <string name="profile_onboarding">Incorporación:</string>
+    <string name="profile_incidence_title">Mis Incidencias</string>
+    <!-- Nav -->
     <string name="title_nav_incident">Incidencias</string>
     <string name="title_nav_map">Mapa</string>
     <string name="title_nav_profile">Mi Perfil</string>
