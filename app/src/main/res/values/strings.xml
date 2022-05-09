@@ -14,4 +14,12 @@
     <string name="title_nav_incident">Incidencias</string>
     <string name="title_nav_map">Mapa</string>
     <string name="title_nav_profile">Mi Perfil</string>
+    <!-- Incidence -->
+    <string name="incidence_title">Mis Incidencias</string>
+    <string name="incidence_all">Ver todas</string>
+    <string name="incidence_number">Nº</string>
+    <string name="incidence_state">Estado</string>
+    <string name="incidence_priority">Prioridad</string>
+    <string name="incidence_date">Fecha</string>
+
 </resources>
