@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.onfieldtbs_android.api.services.IncidenceService;
 import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         // Button Listener
         binding.loginButton.setOnClickListener(view -> {
 
+
             // Check if empty
             if (binding.loginUsernameEditText.getText().toString().matches("") || binding.loginPasswordEditText.getText().toString().matches("")){
                 makeToast(ERR_EMPTY);
@@ -49,13 +51,14 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            // TEST
-            // Show email and password in Debug Log
-            Log.d("LOGIN", "username: " + username + ", password: " + password);
-
+            
             // Go to Main Activity
-            mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(mainIntent);
+            IncidenceService service = new IncidenceService(getApplicationContext());
+            service.login(username, password, response -> {
+                if (response) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+            });
 
         });
     }
