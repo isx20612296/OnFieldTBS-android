@@ -9,7 +9,11 @@
         android:id="@+id/incidenceFragment"
         android:name="com.example.onfieldtbs_android.ui.IncidenceFragment"
         android:label="fragment_incidence"
-        tools:layout="@layout/fragment_incidence" />
+        tools:layout="@layout/fragment_incidence" >
+        <action
+            android:id="@+id/action_incidenceFragment_to_incidenceDetailFragment"
+            app:destination="@id/incidenceDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.onfieldtbs_android.ui.MapFragment"
@@ -20,4 +24,13 @@
         android:name="com.example.onfieldtbs_android.ui.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/incidenceDetailFragment"
+        android:name="com.example.onfieldtbs_android.ui.IncidenceDetailFragment"
+        android:label="fragment_incidence_detail"
+        tools:layout="@layout/fragment_incidence_detail" >
+        <action
+            android:id="@+id/action_incidenceDetailFragment_to_incidenceFragment"
+            app:destination="@id/incidenceFragment" />
+    </fragment>
 </navigation>

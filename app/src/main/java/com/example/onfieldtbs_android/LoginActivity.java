@@ -53,12 +53,13 @@ public class LoginActivity extends AppCompatActivity {
 
             
             // Go to Main Activity
-            IncidenceService service = new IncidenceService(getApplicationContext());
-            service.login(username, password, response -> {
-                if (response) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-            });
+//            IncidenceService service = new IncidenceService(getApplicationContext());
+//            service.login(username, password, response -> {
+//                if (response) { // TESTING ##################################
+//                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                }
+//            });
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
         });
     }
