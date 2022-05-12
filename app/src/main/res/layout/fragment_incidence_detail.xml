@@ -44,12 +44,13 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/open_sans"
                 android:text="@string/detail_creation"
+                android:textStyle="bold"
                 android:textColor="@color/secondaryDarkColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/detailCreationData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -61,7 +62,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/detailClosedData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="39dp"
@@ -70,7 +71,7 @@
                 android:text=" "
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintStart_toEndOf="@+id/detailClosed"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintTop_toBottomOf="@+id/detailCreationData" />
 
             <TextView
                 android:id="@+id/detailClosed"
@@ -154,10 +155,23 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="|"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/detailCompany"
+                app:layout_constraintStart_toEndOf="@+id/detailEmployee"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/detailCompany"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:fontFamily="@font/open_sans"
                 android:text="Enotech"
                 android:textColor="#FFFFFF"

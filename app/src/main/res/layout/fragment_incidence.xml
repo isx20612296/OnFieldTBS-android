@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
+    android:padding="20dp"
     tools:context=".ui.IncidenceFragment">
 
     <TextView
@@ -14,8 +14,8 @@
         android:layout_marginTop="28dp"
         android:fontFamily="@font/open_sans"
         android:text="@string/incidence_title"
+        android:textColor="#000000"
         android:textSize="28sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,20 +27,72 @@
         android:layout_marginTop="12dp"
         android:fontFamily="@font/open_sans"
         android:text="@string/incidence_all"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/incidenceTitle" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/incidenceInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="12dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spaceA"
+        app:layout_constraintTop_toBottomOf="@+id/incidenceAll">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/incidenceEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_search" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/incidenceSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/incidence_search"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/incidenceDateSpinner" />
+
+    <Space
+        android:id="@+id/spaceA"
+        android:layout_width="0.1dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/incidenceAll" />
+
+    <Spinner
+        android:id="@+id/incidenceSearchSpinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/incidenceInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/spaceA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/incidenceInputLayout" />
+
     <Spinner
         android:id="@+id/incidencePrioritySpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incidenceAll" />
+        app:layout_constraintTop_toBottomOf="@+id/incidenceInputLayout" />
 
     <Spinner
         android:id="@+id/incidenceStateSpinner"
@@ -57,14 +109,16 @@
         app:layout_constraintStart_toEndOf="@+id/incidencePrioritySpinner"
         app:layout_constraintTop_toTopOf="@+id/incidencePrioritySpinner" />
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="296dp"
-        android:text="Incidence"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/incidenceRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/incidenceSearchButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

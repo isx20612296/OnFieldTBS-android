@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IncidenceService {
-    public static final String BASE_URL = "http://192.168.1.10:8080";
+    public static final String BASE_URL = "http://192.168.1.135:8080";
     Context context;
 
     public IncidenceService(Context context) {

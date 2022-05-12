@@ -19,7 +19,6 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private String username;
     private String password;
-    private Intent mainIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +52,13 @@ public class LoginActivity extends AppCompatActivity {
 
             
             // Go to Main Activity
-//            IncidenceService service = new IncidenceService(getApplicationContext());
-//            service.login(username, password, response -> {
-//                if (response) { // TESTING ##################################
-//                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//             IncidenceService service = new IncidenceService(getApplicationContext());
+//             service.login(username, password, response -> {
+//                if (response) {
+//
 //                }
 //            });
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
         });
     }
 

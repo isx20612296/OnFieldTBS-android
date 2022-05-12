@@ -21,6 +21,7 @@
     <string name="incidence_state">Estado</string>
     <string name="incidence_priority">Prioridad</string>
     <string name="incidence_date">Fecha</string>
+    <string name="incidence_search">Buscar</string>
     <!-- Incidence Detail -->
     <string name="detail_creation">Creación:</string>
     <string name="detail_closed">Cierre:</string>
