@@ -2,12 +2,11 @@ package com.example.onfieldtbs_android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.onfieldtbs_android.api.services.IncidenceService;
+import com.example.onfieldtbs_android.api.WebService;
 import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -52,13 +51,13 @@ public class LoginActivity extends AppCompatActivity {
 
             
             // Go to Main Activity
-//             IncidenceService service = new IncidenceService(getApplicationContext());
-//             service.login(username, password, response -> {
-//                if (response) {
-//
-//                }
-//            });
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+             WebService service = new WebService(getApplicationContext());
+             service.login(username, password, response -> {
+                if (response) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+            });
+            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
         });
     }
 

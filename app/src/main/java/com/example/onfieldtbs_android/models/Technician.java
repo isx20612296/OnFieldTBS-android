@@ -11,7 +11,7 @@ public class Technician {
     private String email;
     private boolean license;
     private String phone;
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     private User user;
     private Level level;
@@ -69,11 +69,11 @@ public class Technician {
         this.phone = phone;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 

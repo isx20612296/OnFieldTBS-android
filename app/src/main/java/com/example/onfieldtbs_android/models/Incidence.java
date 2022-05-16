@@ -1,5 +1,6 @@
 package com.example.onfieldtbs_android.models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -11,8 +12,8 @@ public class Incidence {
     private String description;
     private String state;
     private String priority;
-    private LocalDateTime createdAt;
-    private LocalDateTime closedAt;
+    private String createdAt;
+    private String closedAt;
 
     private Company company;
 
@@ -65,19 +66,19 @@ public class Incidence {
         this.priority = priority;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getClosedAt() {
+    public String getClosedAt() {
         return closedAt;
     }
 
-    public void setClosedAt(LocalDateTime closedAt) {
+    public void setClosedAt(String closedAt) {
         this.closedAt = closedAt;
     }
 

@@ -7,7 +7,7 @@ public class Comment {
 
     private UUID id;
     private String message;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private Incidence incidence;
     private Technician technician;
 
@@ -30,11 +30,11 @@ public class Comment {
         this.message = message;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 

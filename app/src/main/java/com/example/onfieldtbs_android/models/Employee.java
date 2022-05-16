@@ -12,7 +12,7 @@ public class Employee {
     private String phoneExt;
     private String directPhone;
     private String email;
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     private Company company;
 
@@ -69,11 +69,11 @@ public class Employee {
         this.email = email;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 

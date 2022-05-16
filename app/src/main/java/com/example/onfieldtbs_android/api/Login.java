@@ -23,11 +23,11 @@ public class Login {
         }
     }
 
-    private String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    private static String getAuth() {
+    public static String getAuth() {
         return auth;
     }
 
