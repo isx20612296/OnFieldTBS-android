@@ -8,9 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.databinding.IncidenceRowBinding;
 import com.example.onfieldtbs_android.models.Incidence;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 
 public class IncidenceAdapter extends RecyclerView.Adapter<IncidenceAdapter.ViewHolder> {
@@ -32,26 +36,28 @@ public class IncidenceAdapter extends RecyclerView.Adapter<IncidenceAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.binding.rowState.setText(incidences.get(position).getState());
-        holder.binding.rowPriority.setText(incidences.get(position).getPriority());
-        holder.binding.rowDate.setText(incidences.get(position).getCreatedAt().toString());
 
-        // Title format
-        int counter = 0;
-        String finalTitle = "";
-        boolean end = false;
-        for (char c : incidences.get(position).getTitle().toCharArray()){
-            if (!end) {
-                counter += 1;
-                if (counter > 20) {
-                    finalTitle += "...";
-                    end = true;
-                } else {
-                    finalTitle += c;
-                }
-            }
+        // Priority text color
+        String priority = incidences.get(position).getPriority();
+        holder.binding.rowPriority.setText(priority);
+        switch (priority){
+            case "Baja":
+                holder.binding.rowPriority.setTextColor(context.getResources().getColor(R.color.green));
+                break;
+            case "Media":
+                holder.binding.rowPriority.setTextColor(context.getResources().getColor(R.color.orange));
+                break;
+            case "Alta":
+                holder.binding.rowPriority.setTextColor(context.getResources().getColor(R.color.red));
+                break;
         }
 
-        holder.binding.rowTitle.setText(finalTitle);
+        // Date formatter
+        holder.binding.rowDate.setText(LocalDateTime.parse(incidences.get(position).getCreatedAt()).format(DateTimeFormatter.ofPattern("dd MMM")));
+
+        // Title format
+        holder.binding.rowTitle.setText(incidences.get(position).getId().toString().split("-")[0]);
+
     }
 
     @Override

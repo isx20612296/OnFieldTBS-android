@@ -77,7 +77,14 @@ public class WebService {
                         vr.onResponse(incidences);
                 },
                 error -> toastError()
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", Login.getAuth());
+                return params;
+            }
+        };
         RequestSingleton.getInstance(context).addToRequestQueue(request);
 
     }
@@ -118,7 +125,14 @@ public class WebService {
                     vr.onResponse(levels);
                 },
                 error -> toastError()
-        );
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", Login.getAuth());
+                return params;
+            }
+        };
         RequestSingleton.getInstance(context).addToRequestQueue(request);
 
     }

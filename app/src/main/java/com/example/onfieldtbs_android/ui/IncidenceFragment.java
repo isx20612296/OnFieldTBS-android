@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.onfieldtbs_android.R;
 
@@ -166,39 +167,14 @@ public class IncidenceFragment extends Fragment {
 
 
         // Init Recycler view data
+        WebService service = new WebService(getContext());
         incidences = new ArrayList<>();
-        Incidence incidence1 = new Incidence();
-        incidence1.setTitle("Problema con el portatil");
-        incidence1.setState("Abierto");
-        incidence1.setPriority("Baja");
-        incidence1.setCreatedAt(LocalDateTime.of(2022, 3 ,2 ,16, 48).toString());
-        Incidence incidence2 = new Incidence();
-        incidence2.setTitle("Problema con el portatil");
-        incidence2.setState("Abierto");
-        incidence2.setPriority("Baja");
-        incidence1.setCreatedAt(LocalDateTime.of(2022, 3 ,2 ,16, 48).toString());
-        Incidence incidence3 = new Incidence();
-        incidence3.setTitle("Problema con el portatil");
-        incidence3.setState("Abierto");
-        incidence3.setPriority("Baja");
-        incidence1.setCreatedAt(LocalDateTime.of(2022, 3 ,2 ,16, 48).toString());
-        Incidence incidence4 = new Incidence();
-        incidence4.setTitle("Problema con el portatil");
-        incidence4.setState("Abierto");
-        incidence4.setPriority("Baja");
-        incidence1.setCreatedAt(LocalDateTime.of(2022, 3 ,2 ,16, 48).toString());
-        Incidence incidence5 = new Incidence();
-        incidence5.setTitle("Problema con el portatil");
-        incidence5.setState("Abierto");
-        incidence5.setPriority("Baja");
-        incidence1.setCreatedAt(LocalDateTime.of(2022, 3 ,2 ,16, 48).toString());
-        incidences.addAll(Arrays.asList(incidence1, incidence2, incidence3, incidence4, incidence5));
-
-        incidenceAdapter = new IncidenceAdapter(incidences, getContext());
-        binding.incidenceRecycler.setAdapter(incidenceAdapter);
-        binding.incidenceRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
+        service.getAllIncidence(incidenceList -> {
+            incidences.addAll(incidenceList);
+            incidenceAdapter = new IncidenceAdapter(incidences, getContext());
+            binding.incidenceRecycler.setAdapter(incidenceAdapter);
+            binding.incidenceRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        });
     }
 
     @Override

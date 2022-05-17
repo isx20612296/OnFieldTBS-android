@@ -3,43 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp">
 
-    <TextView
-        android:id="@+id/rowTitle"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:backgroundTint="@color/primaryLightVariantColor"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:contentPadding="5dp"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="10dp">
 
-    <TextView
-        android:id="@+id/rowState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/rowDate"
-        app:layout_constraintStart_toEndOf="@+id/rowPriority"
-        tools:layout_editor_absoluteY="0dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/rowPriority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:fontFamily="@font/open_sans"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/rowTitle"
-        tools:layout_editor_absoluteY="0dp" />
+            <TextView
+                android:id="@+id/rowTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner"
+                android:fontFamily="@font/open_sans"
+                android:text="TextView"
+                android:textColor="@color/primaryColor"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/rowDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/rowState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="90dp"
+                android:background="@drawable/rounded_corner"
+                android:fontFamily="@font/open_sans"
+                android:text="TextView"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/rowDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="270dp"
+                android:background="@drawable/rounded_corner"
+                android:fontFamily="@font/open_sans"
+                android:text="TextView"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toStartOf="@+id/rowTitle" />
+
+            <TextView
+                android:id="@+id/rowPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180dp"
+                android:background="@drawable/rounded_corner"
+                android:fontFamily="@font/open_sans"
+                android:text="TextView"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toStartOf="@+id/rowTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
