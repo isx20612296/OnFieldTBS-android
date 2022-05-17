@@ -1,6 +1,6 @@
 package com.example.onfieldtbs_android.api;
 
-import android.util.Base64;
+import android.util.Log;
 
 public class Login {
 
@@ -18,7 +18,7 @@ public class Login {
 
 
     public synchronized static void createLogin(String username, String password, String auth){
-        if(instance == null){
+        if(instance == null || !instance.isSameLogin(username, password)){
             instance = new Login(username, password, auth);
         }
     }
@@ -33,7 +33,14 @@ public class Login {
 
 
     public static Login getInstance(String  username, String password, String auth){
-        if (instance == null) createLogin(username,password, auth);
+        if (instance == null || !instance.isSameLogin(username, password)) {
+            createLogin(username,password, auth);
+            Log.i("LOGINAA", "LOGIN CREATED. USER: " + username + ", PASS: " + password);
+        }
         return instance;
+    }
+
+    public boolean isSameLogin(String username, String password){
+        return this.username.equals(username) && this.password.equals(password);
     }
 }
