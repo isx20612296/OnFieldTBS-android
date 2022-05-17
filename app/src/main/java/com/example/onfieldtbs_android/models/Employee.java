@@ -1,10 +1,11 @@
 package com.example.onfieldtbs_android.models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-public class Employee {
+public class Employee implements Serializable {
 
     private UUID id;
     private String name;

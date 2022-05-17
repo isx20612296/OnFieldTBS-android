@@ -1,8 +1,9 @@
 package com.example.onfieldtbs_android.models;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class User {
+public class User implements Serializable {
 
     private UUID userId;
     private String username;

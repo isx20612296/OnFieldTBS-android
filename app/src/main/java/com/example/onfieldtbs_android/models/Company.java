@@ -1,9 +1,10 @@
 package com.example.onfieldtbs_android.models;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
-public class Company {
+public class Company implements Serializable {
 
     private UUID id;
     private String name;

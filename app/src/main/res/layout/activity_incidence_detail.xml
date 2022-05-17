@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".ui.IncidenceDetailFragment">
+
+    <TextView
+        android:id="@+id/detailTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/open_sans"
+        android:text="Problema Enotech 1"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detailCardA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="@color/secondaryLightColor"
+        app:cardElevation="1dp"
+        app:layout_constraintTop_toBottomOf="@+id/detailTitle"
+        tools:layout_editor_absoluteX="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/detailCreation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/detail_creation"
+                android:textStyle="bold"
+                android:textColor="@color/secondaryDarkColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailCreationData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/open_sans"
+                android:text="16/04/22 - 09:33 h"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toEndOf="@+id/detailCreation"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailClosedData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="39dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
+                android:text=" "
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toEndOf="@+id/detailClosed"
+                app:layout_constraintTop_toBottomOf="@+id/detailCreationData" />
+
+            <TextView
+                android:id="@+id/detailClosed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/detail_closed"
+                android:textColor="@color/secondaryDarkColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailCreation" />
+
+            <Button
+                android:id="@+id/detailState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:clickable="false"
+                android:fontFamily="@font/open_sans"
+                android:paddingLeft="30dp"
+                android:paddingTop="0dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="0dp"
+                android:text="Abierto"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryDarkColor"
+                android:textSize="12sp"
+                app:cornerRadius="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/detailPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:clickable="false"
+                android:fontFamily="@font/open_sans"
+                android:paddingLeft="30dp"
+                android:paddingTop="0dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="0dp"
+                android:text="Media"
+                android:textAllCaps="false"
+                android:textColor="@color/secondaryDarkColor"
+                android:textSize="12sp"
+                app:cornerRadius="30dp"
+                app:layout_constraintEnd_toEndOf="@+id/detailState"
+                app:layout_constraintStart_toStartOf="@+id/detailState"
+                app:layout_constraintTop_toBottomOf="@+id/detailState" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detailCardB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/primaryColor"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailCardA">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/detailEmployee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:text="Maria Coll"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="|"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/detailCompany"
+                app:layout_constraintStart_toEndOf="@+id/detailEmployee"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/open_sans"
+                android:text="Enotech"
+                android:textColor="#FFFFFF"
+                app:layout_constraintStart_toEndOf="@+id/detailEmployee"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detailCardC"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/primaryLightVariantColor"
+        app:cardCornerRadius="20dp"
+        app:contentPadding="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/detailCardA"
+        tools:layout_editor_absoluteX="13dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailCardC1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="20dp"
+            app:contentPadding="5dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/detailMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Buenos días, \nTengo un problema con Z, y con Y. El otro día estaba trabajando cuando dejaron de funcionar. ¿Podríais echarle un vistazo in situ?\n\n¡Muchas gracias!"
+                    android:textColor="@color/primaryTextColor" />
+            </ScrollView>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/detailCardD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        app:cardBackgroundColor="@color/secondaryLightColor"
+        app:cardCornerRadius="20dp"
+        app:contentPadding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailCardC">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/detailAssignedTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/detail_assigned"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailTechnician"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/open_sans"
+                android:text="Pedro Masó"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toEndOf="@+id/detailAssignedTitle"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/open_sans"
+                android:text="- @pmaso"
+                android:textColor="@color/secondaryDarkColor"
+                app:layout_constraintStart_toEndOf="@+id/detailTechnician"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

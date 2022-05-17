@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-public class Incidence {
+public class Incidence implements Serializable {
 
     private UUID id;
     private String title;
