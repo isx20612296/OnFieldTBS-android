@@ -4,32 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onfieldtbs_android.IncidenceDetailActivity;
 import com.example.onfieldtbs_android.R;
-import com.example.onfieldtbs_android.api.WebService;
+import com.example.onfieldtbs_android.api.service.IncidenceService;
 import com.example.onfieldtbs_android.databinding.IncidenceRowBinding;
 import com.example.onfieldtbs_android.models.Incidence;
-import com.example.onfieldtbs_android.ui.IncidenceFragment;
 import com.example.onfieldtbs_android.utils.Utils;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.List;
 
 public class IncidenceAdapter extends RecyclerView.Adapter<IncidenceAdapter.ViewHolder> {
 
-    private ArrayList<Incidence> incidences;
+    private List<Incidence> incidences;
     private Context context;
 
-    public IncidenceAdapter(ArrayList<Incidence> incidences, Context context) {
+    public IncidenceAdapter(List<Incidence> incidences, Context context) {
         this.incidences = incidences;
         this.context = context;
     }
@@ -69,7 +64,7 @@ public class IncidenceAdapter extends RecyclerView.Adapter<IncidenceAdapter.View
         holder.binding.getRoot().setOnClickListener(view -> {
             Intent intent = new Intent(context, IncidenceDetailActivity.class);
             Bundle bundle = new Bundle();
-            WebService service = new WebService(context);
+            IncidenceService service = new IncidenceService(context);
             service.getIncidenceById(incidences.get(position).getId().toString(), incidence -> {
                 bundle.putSerializable("incidence", incidence);
                 intent.putExtras(bundle);

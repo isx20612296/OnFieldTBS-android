@@ -6,7 +6,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.onfieldtbs_android.api.WebService;
+import com.example.onfieldtbs_android.api.service.IncidenceService;
+import com.example.onfieldtbs_android.api.service.LoginService;
 import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
             
             // Go to Main Activity
-             WebService service = new WebService(getApplicationContext());
+             LoginService service = new LoginService(getApplicationContext());
              service.login(username, password, response -> {
                 if (response) {
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));

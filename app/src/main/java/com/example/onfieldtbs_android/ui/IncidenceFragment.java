@@ -1,13 +1,10 @@
 package com.example.onfieldtbs_android.ui;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -16,26 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.onfieldtbs_android.R;
 
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
-import com.example.onfieldtbs_android.api.WebService;
+import com.example.onfieldtbs_android.api.service.IncidenceService;
 import com.example.onfieldtbs_android.databinding.FragmentIncidenceBinding;
-import com.example.onfieldtbs_android.models.Comment;
-import com.example.onfieldtbs_android.models.Company;
-import com.example.onfieldtbs_android.models.Employee;
 import com.example.onfieldtbs_android.models.Incidence;
-import com.example.onfieldtbs_android.models.Level;
-import com.example.onfieldtbs_android.models.Technician;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -168,7 +154,7 @@ public class IncidenceFragment extends Fragment {
 
 
         // Init Recycler view data
-        WebService service = new WebService(getContext());
+        IncidenceService service = new IncidenceService(getContext());
         incidences = new ArrayList<>();
         service.getAllIncidence(incidenceList -> {
             incidences.addAll(incidenceList);
