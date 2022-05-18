@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onfieldtbs_android.IncidenceDetailActivity;
 import com.example.onfieldtbs_android.R;
+import com.example.onfieldtbs_android.api.WebService;
 import com.example.onfieldtbs_android.databinding.IncidenceRowBinding;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.ui.IncidenceFragment;
@@ -68,9 +69,13 @@ public class IncidenceAdapter extends RecyclerView.Adapter<IncidenceAdapter.View
         holder.binding.getRoot().setOnClickListener(view -> {
             Intent intent = new Intent(context, IncidenceDetailActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putSerializable("incidence", incidences.get(position));
-            intent.putExtras(bundle);
-            context.startActivity(intent);
+            WebService service = new WebService(context);
+            service.getIncidenceById(incidences.get(position).getId().toString(), incidence -> {
+                bundle.putSerializable("incidence", incidence);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            });
+
         });
 
     }
