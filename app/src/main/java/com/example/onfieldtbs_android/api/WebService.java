@@ -56,7 +56,7 @@ public class WebService {
                 Map<String, String> params = new HashMap<>();
                 String credentials = String.format("%s:%s",username,password);
                 String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-                Login.getInstance(username, password, auth);
+                Login.initInstance(username, password, auth);
                 params.put("Authorization", Login.getAuth());
                 return params;
             }

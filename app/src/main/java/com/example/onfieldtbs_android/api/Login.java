@@ -23,6 +23,8 @@ public class Login {
         }
     }
 
+    public static Login getInstance() { return instance; }
+
     public String getUsername() {
         return username;
     }
@@ -32,10 +34,9 @@ public class Login {
     }
 
 
-    public static Login getInstance(String  username, String password, String auth){
+    public static Login initInstance(String  username, String password, String auth){
         if (instance == null || !instance.isSameLogin(username, password)) {
             createLogin(username,password, auth);
-            Log.i("LOGINAA", "LOGIN CREATED. USER: " + username + ", PASS: " + password);
         }
         return instance;
     }

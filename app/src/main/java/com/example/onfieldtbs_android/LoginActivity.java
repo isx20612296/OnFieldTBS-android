@@ -13,7 +13,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String ERR_EMPTY = "Error, campos vacíos";
     private static final String ERR_PASS = "Error, la contraseña es demasiado corta";
-    private static final int MIN_LENGTH = 8;
+    private static final int MIN_LENGTH = 6;
 
     private ActivityLoginBinding binding;
     private String username;
