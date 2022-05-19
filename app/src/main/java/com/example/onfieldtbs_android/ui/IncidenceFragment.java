@@ -17,12 +17,15 @@ import android.widget.ArrayAdapter;
 import com.example.onfieldtbs_android.R;
 
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
+import com.example.onfieldtbs_android.api.Login;
 import com.example.onfieldtbs_android.api.service.IncidenceService;
 import com.example.onfieldtbs_android.databinding.FragmentIncidenceBinding;
 import com.example.onfieldtbs_android.models.Incidence;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 
 public class IncidenceFragment extends Fragment {
@@ -64,17 +67,29 @@ public class IncidenceFragment extends Fragment {
         // TESTING ################################################################
 
 
-
+        IncidenceService service = new IncidenceService(getContext());
         // View all incidences Button
+        //TODO:  Refactor
         AtomicBoolean showMyIncidences = new AtomicBoolean(true);
         binding.incidenceAll.setOnClickListener(view1 -> {
             if (showMyIncidences.get()){
                 binding.incidenceTitle.setText("Todas las Incidencias");
                 binding.incidenceAll.setText("Ver asignadas");
+                service.getAllIncidence(incidenceList -> {
+                    IncidenceTableFragment tableFragment = new IncidenceTableFragment(incidenceList);
+                    getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
+                });
                 showMyIncidences.set(false);
             } else {
                 binding.incidenceTitle.setText("Mis Incidencias");
                 binding.incidenceAll.setText("Ver todas");
+                service.getAllIncidence(incidenceList -> {
+                    List<Incidence> myIncidences = incidenceList.stream().
+                            filter(incidence -> incidence.getTechnician().getUser().getUsername().equals(Login.getInstance().getUsername()))
+                            .collect(Collectors.toList());
+                    IncidenceTableFragment tableFragment = new IncidenceTableFragment(myIncidences);
+                    getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
+                });
                 showMyIncidences.set(true);
             }
         });
@@ -154,13 +169,12 @@ public class IncidenceFragment extends Fragment {
 
 
         // Init Recycler view data
-        IncidenceService service = new IncidenceService(getContext());
-        incidences = new ArrayList<>();
         service.getAllIncidence(incidenceList -> {
-            incidences.addAll(incidenceList);
-            incidenceAdapter = new IncidenceAdapter(incidences, getContext());
-            binding.incidenceRecycler.setAdapter(incidenceAdapter);
-            binding.incidenceRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+            List<Incidence> myIncidences = incidenceList.stream().
+                    filter(incidence -> incidence.getTechnician().getUser().getUsername().equals(Login.getInstance().getUsername()))
+                    .collect(Collectors.toList());
+            IncidenceTableFragment tableFragment = new IncidenceTableFragment(myIncidences);
+            getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
         });
     }
 

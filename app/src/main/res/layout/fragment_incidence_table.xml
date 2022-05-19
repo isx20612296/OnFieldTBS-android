@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.IncidenceTableFragment">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tableCardA"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/incidenceRowTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/incidence_number"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/incidenceRowStateText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="90dp"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/incidence_state"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toStartOf="@+id/incidenceRowTitleText"
+                app:layout_constraintTop_toTopOf="@+id/incidenceRowTitleText" />
+
+            <TextView
+                android:id="@+id/incidenceRowPriorityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="180dp"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/incidence_priority"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toStartOf="@+id/incidenceRowTitleText"
+                app:layout_constraintTop_toTopOf="@+id/incidenceRowTitleText" />
+
+            <TextView
+                android:id="@+id/incidenceRowDateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="270dp"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/incidence_date"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintStart_toStartOf="@+id/incidenceRowTitleText"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/incidenceRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/tableCardA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
