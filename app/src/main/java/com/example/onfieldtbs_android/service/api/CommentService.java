@@ -1,4 +1,4 @@
-package com.example.onfieldtbs_android.api.service;
+package com.example.onfieldtbs_android.service.api;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -6,11 +6,10 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.onfieldtbs_android.api.Login;
-import com.example.onfieldtbs_android.api.RequestSingleton;
-import com.example.onfieldtbs_android.api.VolleyResponse;
-import com.example.onfieldtbs_android.models.Incidence;
-import com.example.onfieldtbs_android.models.Level;
+import com.example.onfieldtbs_android.service.api.Login;
+import com.example.onfieldtbs_android.service.api.RequestSingleton;
+import com.example.onfieldtbs_android.service.api.VolleyResponse;
+import com.example.onfieldtbs_android.models.Comment;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
@@ -20,11 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LevelService {
+public class CommentService {
     public static final String BASE_URL = "http://onfieldtbs.ddns.net";
     Context context;
 
-    public LevelService(Context context) {
+    public CommentService(Context context) {
         this.context = context;
     }
 
@@ -34,16 +33,16 @@ public class LevelService {
         Toast.makeText(context, "AN ERROR OCCURRED", Toast.LENGTH_SHORT).show();
     }
 
-    public void getAllLevel(VolleyResponse< List<Level>> vr){
-        String url = BASE_URL + "/levels";
+    public void getAllComments(VolleyResponse< List<Comment>> vr){
+        String url = BASE_URL + "/comments";
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null,
                 response -> {
                     JSONArray jsonArray = response.optJSONArray("result");
-                    List<Level> levels = Arrays.asList(new GsonBuilder().create().fromJson(jsonArray.toString(), Level[].class));
-                    vr.onResponse(levels);
+                    List<Comment> comments = Arrays.asList(new GsonBuilder().create().fromJson(jsonArray.toString(), Comment[].class));
+                    vr.onResponse(comments);
                 },
                 error -> toastError()
         ){
@@ -58,15 +57,15 @@ public class LevelService {
 
     }
 
-    public void getLevelById(String levelId,VolleyResponse<Level> vr) {
-        String url = BASE_URL + "/levels/" + levelId;
+    public void getCommentById(String commentId,VolleyResponse<Comment> vr) {
+        String url = BASE_URL + "/comments/" + commentId;
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null,
                 response -> {
-                    Level level = new GsonBuilder().create().fromJson(response.toString(), Level.class);
-                    vr.onResponse(level);
+                    Comment comment = new GsonBuilder().create().fromJson(response.toString(), Comment.class);
+                    vr.onResponse(comment);
                 },
                 error -> toastError()
         ) {
@@ -78,8 +77,8 @@ public class LevelService {
             }
         };
         RequestSingleton.getInstance(context).addToRequestQueue(request);
-
     }
+
 
 }
 

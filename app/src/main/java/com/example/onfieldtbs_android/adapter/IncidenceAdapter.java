@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onfieldtbs_android.IncidenceDetailActivity;
 import com.example.onfieldtbs_android.R;
-import com.example.onfieldtbs_android.api.service.IncidenceService;
+import com.example.onfieldtbs_android.service.api.IncidenceService;
 import com.example.onfieldtbs_android.databinding.IncidenceRowBinding;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IncidenceAdapter extends RecyclerView.Adapter<IncidenceAdapter.ViewHolder> {

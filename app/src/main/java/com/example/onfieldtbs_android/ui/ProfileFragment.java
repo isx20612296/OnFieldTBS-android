@@ -12,9 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
-import com.example.onfieldtbs_android.api.Login;
-import com.example.onfieldtbs_android.api.service.IncidenceService;
-import com.example.onfieldtbs_android.api.service.TechnicianService;
+import com.example.onfieldtbs_android.service.api.Login;
+import com.example.onfieldtbs_android.service.api.TechnicianService;
 import com.example.onfieldtbs_android.databinding.FragmentProfileBinding;
 
 

@@ -1,6 +1,4 @@
-package com.example.onfieldtbs_android.api;
-
-import android.util.Log;
+package com.example.onfieldtbs_android.service.api;
 
 public class Login {
 

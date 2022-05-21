@@ -1,4 +1,4 @@
-package com.example.onfieldtbs_android.api.service;
+package com.example.onfieldtbs_android.service.api;
 
 import android.content.Context;
 import android.util.Base64;
@@ -6,24 +6,12 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.example.onfieldtbs_android.api.Login;
-import com.example.onfieldtbs_android.api.RequestSingleton;
-import com.example.onfieldtbs_android.api.VolleyResponse;
-import com.example.onfieldtbs_android.models.Comment;
-import com.example.onfieldtbs_android.models.Company;
-import com.example.onfieldtbs_android.models.Employee;
-import com.example.onfieldtbs_android.models.Incidence;
-import com.example.onfieldtbs_android.models.Level;
-import com.example.onfieldtbs_android.models.Technician;
-import com.google.gson.GsonBuilder;
+import com.example.onfieldtbs_android.service.api.Login;
+import com.example.onfieldtbs_android.service.api.RequestSingleton;
+import com.example.onfieldtbs_android.service.api.VolleyResponse;
 
-import org.json.JSONArray;
-
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LoginService {

@@ -6,8 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.onfieldtbs_android.api.service.IncidenceService;
-import com.example.onfieldtbs_android.api.service.LoginService;
+import com.example.onfieldtbs_android.service.api.LoginService;
 import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -29,6 +28,18 @@ public class LoginActivity extends AppCompatActivity {
         // Set initial text
         binding.loginUsernameEditText.setText("");
         binding.loginPasswordEditText.setText("");
+
+
+        // TESTING ################################################################
+        binding.btnGarcia.setOnClickListener(view -> {
+            binding.loginUsernameEditText.setText("jgarcia");
+            binding.loginPasswordEditText.setText("Jg@rc1A");
+        });
+        binding.btnLopez.setOnClickListener(view -> {
+            binding.loginUsernameEditText.setText("nlopez");
+            binding.loginPasswordEditText.setText("Nl0p3Z");
+        });
+        // TESTING ################################################################
 
         // Button Listener
         binding.loginButton.setOnClickListener(view -> {

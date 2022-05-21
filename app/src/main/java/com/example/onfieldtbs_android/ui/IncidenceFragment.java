@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,8 +16,8 @@ import android.widget.ArrayAdapter;
 import com.example.onfieldtbs_android.R;
 
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
-import com.example.onfieldtbs_android.api.Login;
-import com.example.onfieldtbs_android.api.service.IncidenceService;
+import com.example.onfieldtbs_android.service.api.Login;
+import com.example.onfieldtbs_android.service.api.IncidenceService;
 import com.example.onfieldtbs_android.databinding.FragmentIncidenceBinding;
 import com.example.onfieldtbs_android.models.Incidence;
 

@@ -1,4 +1,4 @@
-package com.example.onfieldtbs_android.api;
+package com.example.onfieldtbs_android.service.api;
 
 import android.content.Context;
 
