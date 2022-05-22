@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_incidence.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_incidence_detail.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_incidence_table.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_test.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/incidence_row.xml" value="0.67" />

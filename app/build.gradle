@@ -54,4 +54,9 @@ dependencies {
 
     // Recycler
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    // Maps
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    //Location
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
 }
