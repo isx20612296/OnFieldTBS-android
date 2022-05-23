@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
 import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.TechnicianService;
@@ -45,8 +46,8 @@ public class ProfileFragment extends Fragment {
             binding.profileEmail.setText(loggedTechnician.getEmail());
             binding.profilePhone.setText(loggedTechnician.getPhone());
             service.getIncidenceById(loggedTechnician.getId().toString(), myIncidences -> {
-                binding.profileRecycler.setAdapter(new IncidenceAdapter(myIncidences, getContext()));
-                binding.profileRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+                IncidenceTableFragment tableFragment = new IncidenceTableFragment(myIncidences);
+                getChildFragmentManager().beginTransaction().replace(R.id.profileTableFragment, tableFragment).commit();
             });
         });
     }

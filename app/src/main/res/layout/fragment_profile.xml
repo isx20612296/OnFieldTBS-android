@@ -163,18 +163,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileEmail" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/profileTableFragment"
+        android:name="com.example.onfieldtbs_android.ui.IncidenceTableFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileIncidenceTitle" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/incidenceCardA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/profileIncidenceTitle"
         tools:layout_editor_absoluteX="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/incidenceRowTitleText"
@@ -183,6 +195,7 @@
                 android:fontFamily="@font/open_sans"
                 android:text="@string/incidence_number"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -194,6 +207,7 @@
                 android:fontFamily="@font/open_sans"
                 android:text="@string/incidence_state"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/incidenceRowTitleText"
                 app:layout_constraintTop_toTopOf="@+id/incidenceRowTitleText" />
 
@@ -205,6 +219,7 @@
                 android:fontFamily="@font/open_sans"
                 android:text="@string/incidence_priority"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/incidenceRowTitleText"
                 app:layout_constraintTop_toTopOf="@+id/incidenceRowTitleText" />
 
@@ -216,6 +231,7 @@
                 android:fontFamily="@font/open_sans"
                 android:text="@string/incidence_date"
                 android:textColor="@color/primaryTextColor"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/incidenceRowTitleText"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -225,6 +241,7 @@
         android:id="@+id/profileRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
