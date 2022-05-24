@@ -10,6 +10,7 @@ import com.example.onfieldtbs_android.service.api.EmployeeService;
 import com.example.onfieldtbs_android.service.api.IncidenceService;
 import com.example.onfieldtbs_android.ui.components.IncidenceTableFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,15 +34,8 @@ public class EmployeeProfile extends AppCompatActivity {
             binding.profileEmployeeExt.setText(employee.getPhoneExt());
             binding.profileEmployeeEmail.setText(employee.getEmail());
             binding.profileEmployeePhone.setText(employee.getDirectPhone());
-            IncidenceService incidenceService = new IncidenceService(getApplicationContext());
-            incidenceService.getAllIncidence(incidences -> {
-                    List<Incidence> employeeIncidences = incidences.stream().
-                            filter(incidence -> incidence.getEmployee().getId().toString().equals(employeeId))
-                            .collect(Collectors.toList());
-                IncidenceTableFragment incidenceTableFragment = new IncidenceTableFragment(employeeIncidences);
-                getSupportFragmentManager().beginTransaction().replace(R.id.profileEmployeeTableFragment, incidenceTableFragment);
-
-            });
+            IncidenceTableFragment incidenceTableFragment = new IncidenceTableFragment(new ArrayList<>(employee.getIncidences()));
+            getSupportFragmentManager().beginTransaction().replace(R.id.profileEmployeeTableFragment, incidenceTableFragment).commit();
         });
 
 
