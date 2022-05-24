@@ -52,5 +52,14 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         binding.detailRecycler.setAdapter(new CommentAdapter(incidence.getComments(), getApplicationContext()));
         binding.detailRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
+        // Employee Detail On Click Listener
+        binding.detailCardEmployee.setOnClickListener(view -> {
+            Intent intent = new Intent(IncidenceDetailActivity.this, EmployeeProfile.class);
+            Bundle employeeBundle = new Bundle();
+            employeeBundle.putString("employeeId", incidence.getEmployee().getId().toString());
+            intent.putExtras(employeeBundle);
+            startActivity(intent);
+        });
+
     }
 }

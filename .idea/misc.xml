@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/top_rounded_corner.xml" value="0.17" />
         <entry key="app/src/main/res/layout-sw600dp/activity_login.xml" value="0.26640625" />
+        <entry key="app/src/main/res/layout/activity_employee_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_incidence_detail.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35520833333333335" />
