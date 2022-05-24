@@ -10,25 +10,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
-import com.example.onfieldtbs_android.R;
-
-import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
 import com.example.onfieldtbs_android.adapter.ViewPagerIncidenceFragmentAdapter;
-import com.example.onfieldtbs_android.service.api.Login;
-import com.example.onfieldtbs_android.service.api.IncidenceService;
 import com.example.onfieldtbs_android.databinding.FragmentIncidenceBinding;
 import com.example.onfieldtbs_android.models.Incidence;
-import com.example.onfieldtbs_android.ui.components.IncidenceTableFragment;
-import com.google.android.material.tabs.TabLayout;
+import com.example.onfieldtbs_android.service.api.Model.ApiClient;
+import com.example.onfieldtbs_android.service.api.Model.ModelList;
+import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
+import com.example.onfieldtbs_android.service.api.Model.WebService;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
+
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class IncidenceFragment extends Fragment {
@@ -60,8 +56,8 @@ public class IncidenceFragment extends Fragment {
                     tab.setText("Todas");
                     break;
             }
-
         }).attach();
+
 
     }
 
