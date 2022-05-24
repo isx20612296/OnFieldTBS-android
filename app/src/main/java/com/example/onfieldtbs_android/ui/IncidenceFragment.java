@@ -16,10 +16,14 @@ import android.widget.ArrayAdapter;
 import com.example.onfieldtbs_android.R;
 
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
+import com.example.onfieldtbs_android.adapter.ViewPagerIncidenceFragmentAdapter;
 import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.IncidenceService;
 import com.example.onfieldtbs_android.databinding.FragmentIncidenceBinding;
 import com.example.onfieldtbs_android.models.Incidence;
+import com.example.onfieldtbs_android.ui.components.IncidenceTableFragment;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +34,7 @@ import java.util.stream.Collectors;
 public class IncidenceFragment extends Fragment {
 
     private FragmentIncidenceBinding binding;
-
-    private String [] states;
-    private String [] priorities;
-    private String [] datesSorting;
-    private String [] searchOptions;
-    private ArrayAdapter<String> statesAdapter;
-    private ArrayAdapter<String> prioritiesAdapter;
-    private ArrayAdapter<String> datesSortingAdapter;
-    private ArrayAdapter<String> searchOptionsAdapter;
-    private ArrayList<Incidence> incidences;
-    private IncidenceAdapter incidenceAdapter;
+    ViewPagerIncidenceFragmentAdapter adapter;
 
 
 
@@ -48,133 +42,30 @@ public class IncidenceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentIncidenceBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
 
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // TESTING ################################################################
-//        NavController navController = Navigation.findNavController(view);
-//
-//        binding.testButton.setOnClickListener(viewB -> {
-//            navController.navigate(R.id.action_incidenceFragment_to_incidenceDetailFragment);
-//        });
-        // TESTING ################################################################
-
-
-        IncidenceService service = new IncidenceService(getContext());
-        // View all incidences Button
-        //TODO:  Refactor
-        AtomicBoolean showMyIncidences = new AtomicBoolean(true);
-        binding.incidenceAll.setOnClickListener(view1 -> {
-            if (showMyIncidences.get()){
-                binding.incidenceTitle.setText("Todas las Incidencias");
-                binding.incidenceAll.setText("Ver asignadas");
-                service.getAllIncidence(incidenceList -> {
-                    IncidenceTableFragment tableFragment = new IncidenceTableFragment(incidenceList);
-                    getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
-                });
-                showMyIncidences.set(false);
-            } else {
-                binding.incidenceTitle.setText("Mis Incidencias");
-                binding.incidenceAll.setText("Ver todas");
-                service.getAllIncidence(incidenceList -> {
-                    List<Incidence> myIncidences = incidenceList.stream().
-                            filter(incidence -> incidence.getTechnician().getUser().getUsername().equals(Login.getInstance().getUsername()))
-                            .collect(Collectors.toList());
-                    IncidenceTableFragment tableFragment = new IncidenceTableFragment(myIncidences);
-                    getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
-                });
-                showMyIncidences.set(true);
-            }
-        });
-
-        // Set lists data
-        states = new String[]{"Estado", "Abierto", "En progreso", "Pausado", "Cerrado"};
-        priorities = new String[] {"Prioridad", "Alta", "Media", "Baja"};
-        datesSorting = new String[]{"Fecha", "Recientes", "Antiguos"};
-        searchOptions = new String[]{"Buscar por...", "Título", "Técnico", "Empleado", "Empresa"};
-
-        // Create Spinner adapters
-        statesAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, states);
-        prioritiesAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, priorities);
-        datesSortingAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, datesSorting);
-        searchOptionsAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, searchOptions);
-
-        // Set adapters to Spinners
-        binding.incidenceStateSpinner.setAdapter(statesAdapter);
-        binding.incidencePrioritySpinner.setAdapter(prioritiesAdapter);
-        binding.incidenceDateSpinner.setAdapter(datesSortingAdapter);
-        binding.incidenceSearchSpinner.setAdapter(searchOptionsAdapter);
-
-        // Set default values
-        binding.incidenceStateSpinner.setSelection(0);
-        binding.incidencePrioritySpinner.setSelection(0);
-        binding.incidenceDateSpinner.setSelection(0);
-        binding.incidenceSearchSpinner.setSelection(0);
-
-        // Set actions to do when item selected
-        binding.incidenceStateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
+        adapter = new ViewPagerIncidenceFragmentAdapter(this);
+        binding.viewPager.setAdapter(adapter);
+        new TabLayoutMediator(binding.tabIncidences, binding.viewPager, (tab, position) -> {
+            switch (position){
+                case 0:{
+                    tab.setText("Mis Incidencias");
+                    tab.setIcon(R.drawable.ic_technician);
+                    break;
+                }
+                case 1:{
+                    tab.setText("Todas");
+                    tab.setIcon(R.drawable.ic_all_incidences);
+                }
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
-        });
+        }).attach();
 
-        binding.incidencePrioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
-        });
-
-        binding.incidenceDateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
-        });
-
-        binding.incidenceSearchSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
-        });
-
-
-        // Init Recycler view data
-        service.getAllIncidence(incidenceList -> {
-            List<Incidence> myIncidences = incidenceList.stream().
-                    filter(incidence -> incidence.getTechnician().getUser().getUsername().equals(Login.getInstance().getUsername()))
-                    .collect(Collectors.toList());
-            IncidenceTableFragment tableFragment = new IncidenceTableFragment(myIncidences);
-            getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
-        });
     }
 
     @Override

@@ -12,8 +12,10 @@
         <entry key="..\:/ProyectosDAM/OnFieldTBS/OnFieldTBS-android/app/src/main/res/layout/fragment_profile.xml" value="0.38697916666666665" />
         <entry key="..\:/ProyectosDAM/OnFieldTBS/OnFieldTBS-android/app/src/main/res/menu/bottom_nav_menu.xml" value="0.29635416666666664" />
         <entry key="app/src/main/res/drawable/bottom_rounded_corner.xml" value="0.17" />
+        <entry key="app/src/main/res/drawable/ic_all_incidences.xml" value="0.2635" />
         <entry key="app/src/main/res/drawable/ic_nav_incidence.xml" value="0.17" />
         <entry key="app/src/main/res/drawable/ic_splash_logo.xml" value="0.164" />
+        <entry key="app/src/main/res/drawable/ic_technician.xml" value="0.2635" />
         <entry key="app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/top_rounded_corner.xml" value="0.17" />
         <entry key="app/src/main/res/layout-sw600dp/activity_login.xml" value="0.26640625" />
@@ -23,10 +25,12 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/comment_row.xml" value="0.38219895287958117" />
-        <entry key="app/src/main/res/layout/fragment_incidence.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_all_incidence.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/fragment_incidence.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_incidence_detail.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_incidence_table.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/fragment_my_incidence.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_test.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/incidence_row.xml" value="0.67" />
@@ -41,5 +45,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.5" />
+      </ProjectState>
+    </option>
   </component>
 </project>
