@@ -53,15 +53,12 @@ public class IncidenceFragment extends Fragment {
         binding.viewPager.setAdapter(adapter);
         new TabLayoutMediator(binding.tabIncidences, binding.viewPager, (tab, position) -> {
             switch (position){
-                case 0:{
+                case 0:
                     tab.setText("Mis Incidencias");
-                    tab.setIcon(R.drawable.ic_technician);
                     break;
-                }
-                case 1:{
+                case 1:
                     tab.setText("Todas");
-                    tab.setIcon(R.drawable.ic_all_incidences);
-                }
+                    break;
             }
 
         }).attach();
