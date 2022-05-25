@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onfieldtbs_android.IncidenceDetailActivity;
 import com.example.onfieldtbs_android.R;
-import com.example.onfieldtbs_android.service.api.IncidenceService;
 import com.example.onfieldtbs_android.databinding.IncidenceRowBinding;
 import com.example.onfieldtbs_android.models.Incidence;
+import com.example.onfieldtbs_android.service.api.Model.ApiClient;
+import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
 import com.example.onfieldtbs_android.utils.Utils;
 
 import java.util.List;
@@ -63,13 +64,12 @@ public class IncidenceAdapter extends RecyclerView.Adapter<IncidenceAdapter.View
         holder.binding.getRoot().setOnClickListener(view -> {
             Intent intent = new Intent(context, IncidenceDetailActivity.class);
             Bundle bundle = new Bundle();
-            IncidenceService service = new IncidenceService(context);
-            service.getIncidenceById(incidences.get(position).getId().toString(), incidence -> {
+            ApiClient.getApi().getIncidenceById(incidences.get(position).getId().toString()).enqueue((RetrofitCallBack<Incidence>) (call, response) -> {
+                Incidence incidence = response.body();
                 bundle.putSerializable("incidence", incidence);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             });
-
         });
 
     }

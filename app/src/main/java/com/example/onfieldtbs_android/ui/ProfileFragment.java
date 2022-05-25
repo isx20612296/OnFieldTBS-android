@@ -12,9 +12,15 @@ import android.view.ViewGroup;
 
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.databinding.FragmentProfileBinding;
+import com.example.onfieldtbs_android.models.Incidence;
+import com.example.onfieldtbs_android.models.Technician;
 import com.example.onfieldtbs_android.service.api.Login;
-import com.example.onfieldtbs_android.service.api.TechnicianService;
+import com.example.onfieldtbs_android.service.api.Model.ApiClient;
+import com.example.onfieldtbs_android.service.api.Model.ModelList;
+import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.components.IncidenceTableFragment;
+
+import java.util.List;
 
 
 public class ProfileFragment extends Fragment {
@@ -33,9 +39,8 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TechnicianService service = new TechnicianService(getContext());
-
-        service.getTechnicianByUsername(Login.getInstance().getUsername(), loggedTechnician -> {
+        ApiClient.getApi().getTechnicianByUsername(Login.getInstance().getUsername()).enqueue((RetrofitCallBack<Technician>) (call, response) -> {
+            Technician loggedTechnician = response.body();
             String fullName = loggedTechnician.getName() + " " + loggedTechnician.getLastname();
             String fullUsername = "@" + loggedTechnician.getUser().getUsername();
             binding.profileFullName.setText(fullName);
@@ -44,11 +49,13 @@ public class ProfileFragment extends Fragment {
             binding.profileOnboarding.setText(loggedTechnician.getCreatedAt());
             binding.profileEmail.setText(loggedTechnician.getEmail());
             binding.profilePhone.setText(loggedTechnician.getPhone());
-            service.getIncidenceById(loggedTechnician.getId().toString(), myIncidences -> {
-                IncidenceTableFragment tableFragment = new IncidenceTableFragment(myIncidences);
+            ApiClient.getApi().getIncidenceByTechnicianId(loggedTechnician.getId().toString()).enqueue((RetrofitCallBack<ModelList<Incidence>>) (techCall, techResponse) -> {
+                List<Incidence> technicianIncidences = techResponse.body().result;
+                IncidenceTableFragment tableFragment = new IncidenceTableFragment(technicianIncidences);
                 getChildFragmentManager().beginTransaction().replace(R.id.profileTableFragment, tableFragment).commit();
             });
         });
+
     }
 
     @Override

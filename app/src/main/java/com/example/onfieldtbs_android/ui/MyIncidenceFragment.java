@@ -14,16 +14,16 @@ import androidx.fragment.app.Fragment;
 
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
-import com.example.onfieldtbs_android.databinding.FragmentIncidenceBinding;
 import com.example.onfieldtbs_android.databinding.FragmentMyIncidenceBinding;
 import com.example.onfieldtbs_android.models.Incidence;
-import com.example.onfieldtbs_android.service.api.IncidenceService;
 import com.example.onfieldtbs_android.service.api.Login;
+import com.example.onfieldtbs_android.service.api.Model.ApiClient;
+import com.example.onfieldtbs_android.service.api.Model.ModelList;
+import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.components.IncidenceTableFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 
@@ -58,7 +58,6 @@ public class MyIncidenceFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        IncidenceService service = new IncidenceService(getContext());
         // View all incidences Button
         //TODO:  Refactor
 
@@ -137,13 +136,14 @@ public class MyIncidenceFragment extends Fragment {
 
 
         // Init Recycler view data
-        service.getAllIncidence(incidenceList -> {
-            List<Incidence> myIncidences = incidenceList.stream().
+        ApiClient.getApi().getAllIncidences().enqueue((RetrofitCallBack<ModelList<Incidence>>) (call, response) -> {
+            List<Incidence> myIncidences = response.body().result.stream().
                     filter(incidence -> incidence.getTechnician().getUser().getUsername().equals(Login.getInstance().getUsername()))
                     .collect(Collectors.toList());
             IncidenceTableFragment tableFragment = new IncidenceTableFragment(myIncidences);
             getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
         });
+
     }
 
     @Override

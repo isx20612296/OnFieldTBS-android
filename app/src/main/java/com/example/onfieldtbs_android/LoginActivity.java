@@ -8,6 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.onfieldtbs_android.service.api.LoginService;
 import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
+import com.example.onfieldtbs_android.service.api.Model.ApiClient;
+import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -63,13 +68,13 @@ public class LoginActivity extends AppCompatActivity {
 
             
             // Go to Main Activity
+            // TODO(Retrofit)
              LoginService service = new LoginService(getApplicationContext());
              service.login(username, password, response -> {
                 if (response) {
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
             });
-            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
         });
     }
 
