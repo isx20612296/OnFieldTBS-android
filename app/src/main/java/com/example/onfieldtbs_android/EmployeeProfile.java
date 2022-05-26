@@ -1,18 +1,9 @@
 package com.example.onfieldtbs_android;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.onfieldtbs_android.databinding.ActivityEmployeeProfileBinding;
 import com.example.onfieldtbs_android.models.Employee;
@@ -20,10 +11,9 @@ import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.service.api.Model.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
-import com.example.onfieldtbs_android.ui.components.IncidenceTableFragment;
+import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 

@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.onfieldtbs_android.ui.AllIncidenceFragment;
-import com.example.onfieldtbs_android.ui.MyIncidenceFragment;
+import com.example.onfieldtbs_android.ui.views.AllIncidenceFragment;
+import com.example.onfieldtbs_android.ui.views.MyIncidenceFragment;
 public class ViewPagerIncidenceFragmentAdapter extends FragmentStateAdapter {
 
 

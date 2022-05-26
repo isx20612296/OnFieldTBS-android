@@ -1,4 +1,4 @@
-package com.example.onfieldtbs_android.ui;
+package com.example.onfieldtbs_android.ui.views;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
@@ -19,7 +20,8 @@ import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.service.api.Model.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
-import com.example.onfieldtbs_android.ui.components.IncidenceTableFragment;
+import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
+import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,12 +132,15 @@ public class AllIncidenceFragment extends Fragment {
         });
 
 
+        // ViewModel
+        final IncidencesViewModel incidencesViewModel = new ViewModelProvider(requireActivity()).get(IncidencesViewModel.class);
+
         // Init Recycler view data
-        ApiClient.getApi().getAllIncidences().enqueue((RetrofitCallBack<ModelList<Incidence>>) (call, response) -> {
-            List<Incidence> incidenceList = response.body().result;
-            IncidenceTableFragment tableFragment = new IncidenceTableFragment(incidenceList);
+        incidencesViewModel.getLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> {
+            IncidenceTableFragment tableFragment = new IncidenceTableFragment(liveInfo.allIncidences);
             getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
         });
+
     }
 
     @Override

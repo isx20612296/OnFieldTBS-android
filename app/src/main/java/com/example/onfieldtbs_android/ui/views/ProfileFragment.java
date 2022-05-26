@@ -1,4 +1,4 @@
-package com.example.onfieldtbs_android.ui;
+package com.example.onfieldtbs_android.ui.views;
 
 import android.os.Bundle;
 
@@ -18,7 +18,7 @@ import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.Model.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
-import com.example.onfieldtbs_android.ui.components.IncidenceTableFragment;
+import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
 
 import java.util.List;
 

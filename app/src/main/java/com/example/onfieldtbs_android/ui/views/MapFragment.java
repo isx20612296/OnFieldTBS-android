@@ -1,4 +1,4 @@
-package com.example.onfieldtbs_android.ui;
+package com.example.onfieldtbs_android.ui.views;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

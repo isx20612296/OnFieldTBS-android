@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/incidenceFragment"
-        android:name="com.example.onfieldtbs_android.ui.IncidenceFragment"
+        android:name="com.example.onfieldtbs_android.ui.views.IncidenceFragment"
         android:label="fragment_incidence"
         tools:layout="@layout/fragment_incidence" >
         <action
@@ -16,17 +16,17 @@
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.onfieldtbs_android.ui.MapFragment"
+        android:name="com.example.onfieldtbs_android.ui.views.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.onfieldtbs_android.ui.ProfileFragment"
+        android:name="com.example.onfieldtbs_android.ui.views.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/incidenceDetailFragment"
-        android:name="com.example.onfieldtbs_android.ui.IncidenceDetailFragment"
+        android:name="com.example.onfieldtbs_android.ui.views.IncidenceDetailFragment"
         android:label="fragment_incidence_detail"
         tools:layout="@layout/fragment_incidence_detail" >
         <action

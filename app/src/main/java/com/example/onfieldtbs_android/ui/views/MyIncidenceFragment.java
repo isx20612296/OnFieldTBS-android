@@ -1,4 +1,4 @@
-package com.example.onfieldtbs_android.ui;
+package com.example.onfieldtbs_android.ui.views;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +11,10 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
@@ -20,7 +24,9 @@ import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.Model.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
-import com.example.onfieldtbs_android.ui.components.IncidenceTableFragment;
+import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
+import com.example.onfieldtbs_android.ui.viewModels.LiveInfo;
+import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,14 +141,15 @@ public class MyIncidenceFragment extends Fragment {
         });
 
 
+        // ViewModel
+        final IncidencesViewModel incidencesViewModel = new ViewModelProvider(requireActivity()).get(IncidencesViewModel.class);
+
         // Init Recycler view data
-        ApiClient.getApi().getAllIncidences().enqueue((RetrofitCallBack<ModelList<Incidence>>) (call, response) -> {
-            List<Incidence> myIncidences = response.body().result.stream().
-                    filter(incidence -> incidence.getTechnician().getUser().getUsername().equals(Login.getInstance().getUsername()))
-                    .collect(Collectors.toList());
-            IncidenceTableFragment tableFragment = new IncidenceTableFragment(myIncidences);
-            getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
-        });
+       incidencesViewModel.getLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> {
+           IncidenceTableFragment tableFragment = new IncidenceTableFragment(liveInfo.userIncidences);
+           getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
+       });
+
 
     }
 

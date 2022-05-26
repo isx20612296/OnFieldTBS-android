@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="15dp"
-    tools:context=".ui.ProfileFragment">
+    tools:context=".ui.views.ProfileFragment">
 
     <TextView
         android:id="@+id/profileFullName"
@@ -165,7 +165,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/profileTableFragment"
-        android:name="com.example.onfieldtbs_android.ui.components.IncidenceTableFragment"
+        android:name="com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
