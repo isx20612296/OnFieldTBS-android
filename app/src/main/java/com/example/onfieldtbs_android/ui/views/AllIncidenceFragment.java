@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
+import com.example.onfieldtbs_android.utils.OnFieldItemSelected;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,52 +85,20 @@ public class AllIncidenceFragment extends Fragment {
         binding.incidenceSearchSpinner.setSelection(0);
 
         // Set actions to do when item selected
-        binding.incidenceStateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
+        binding.incidenceStateSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, stateView, position, l) -> {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
         });
 
-        binding.incidencePrioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
+        binding.incidencePrioritySpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, priorityView, position, l) -> {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
         });
 
-        binding.incidenceDateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
+        binding.incidenceDateSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, dateView, position, l) -> {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
         });
 
-        binding.incidenceSearchSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
+        binding.incidenceSearchSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, searchView, position, l) -> {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
         });
 
 
