@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
+import com.example.onfieldtbs_android.models.Employee;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.Model.ApiClient;
@@ -16,6 +17,7 @@ import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
 import com.example.onfieldtbs_android.service.api.Model.WebService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -28,6 +30,7 @@ public class IncidencesViewModel extends AndroidViewModel {
 
     private static final String username = Login.getInstance().getUsername();
     private MutableLiveData<LiveInfo> mutableLiveInfo = new MutableLiveData<>();
+    private MutableLiveData<List<Incidence>> mutableEmployeeIncidenceList = new MutableLiveData<>();
     public LiveData<Integer> userIncidencesNumber = Transformations.switchMap(mutableLiveInfo, input -> new MutableLiveData<>(input.userIncidencesNumber));
     public LiveData<Integer> allIncidencesNumber = Transformations.switchMap(mutableLiveInfo, input -> new MutableLiveData<>(input.allIncidencesNumber));
 
@@ -53,4 +56,16 @@ public class IncidencesViewModel extends AndroidViewModel {
         return mutableLiveInfo;
     }
 
+    public MutableLiveData<List<Incidence>> getEmployeeIncidences(String id){
+        ApiClient.getApi().getAllIncidences().enqueue((RetrofitCallBack<ModelList<Incidence>>) (call, response) -> {
+            if (!response.isSuccessful()){
+                Log.e("Employee Incidences Error", response.message());
+            }
+            Predicate<Incidence> byEmployee = incidence -> incidence.getEmployee().getId().toString().equals(id);
+            assert response.body() != null;
+            List<Incidence> employeeIncidences = response.body().result.stream().filter(byEmployee).collect(Collectors.toList());
+            mutableEmployeeIncidenceList.postValue(employeeIncidences);
+        });
+        return mutableEmployeeIncidenceList;
+    }
 }

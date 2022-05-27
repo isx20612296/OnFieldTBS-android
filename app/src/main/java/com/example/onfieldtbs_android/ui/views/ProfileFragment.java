@@ -5,10 +5,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.databinding.FragmentProfileBinding;
@@ -18,6 +22,8 @@ import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.Model.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
+import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
+import com.example.onfieldtbs_android.ui.viewModels.LiveInfo;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
 
 import java.util.List;
@@ -49,13 +55,16 @@ public class ProfileFragment extends Fragment {
             binding.profileOnboarding.setText(loggedTechnician.getCreatedAt());
             binding.profileEmail.setText(loggedTechnician.getEmail());
             binding.profilePhone.setText(loggedTechnician.getPhone());
-            ApiClient.getApi().getIncidenceByTechnicianId(loggedTechnician.getId().toString()).enqueue((RetrofitCallBack<ModelList<Incidence>>) (techCall, techResponse) -> {
-                List<Incidence> technicianIncidences = techResponse.body().result;
-                IncidenceTableFragment tableFragment = new IncidenceTableFragment(technicianIncidences);
+
+            // View Model
+            final IncidencesViewModel incidencesViewModel = new ViewModelProvider(requireActivity()).get(IncidencesViewModel.class);
+
+            // Set technician table data
+            incidencesViewModel.getLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> {
+                IncidenceTableFragment tableFragment = new IncidenceTableFragment(liveInfo.userIncidences);
                 getChildFragmentManager().beginTransaction().replace(R.id.profileTableFragment, tableFragment).commit();
             });
         });
-
     }
 
     @Override

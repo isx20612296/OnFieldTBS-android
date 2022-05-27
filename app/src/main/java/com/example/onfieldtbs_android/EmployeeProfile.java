@@ -1,6 +1,9 @@
 package com.example.onfieldtbs_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +14,7 @@ import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.service.api.Model.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
+import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
 
 import java.util.List;
@@ -58,12 +62,13 @@ public class EmployeeProfile extends AppCompatActivity {
 //                });
 //            }
 
-            ApiClient.getApi().getAllIncidences().enqueue((RetrofitCallBack<ModelList<Incidence>>) (incidenceCall, incidenceResponse) -> {
-                Predicate<Incidence> byEmployee = incidence -> incidence.getEmployee().getId().equals(employee.getId());
-                List<Incidence> employeeIncidences = incidenceResponse.body().result.stream().filter(byEmployee).collect(Collectors.toList());
-                IncidenceTableFragment incidenceTableFragment = new IncidenceTableFragment(employeeIncidences);
+            final IncidencesViewModel incidencesViewModel = new ViewModelProvider(this).get(IncidencesViewModel.class);
+            incidencesViewModel.getEmployeeIncidences(employeeId).observe(this, incidences -> {
+                IncidenceTableFragment incidenceTableFragment = new IncidenceTableFragment(incidences);
                 getSupportFragmentManager().beginTransaction().replace(R.id.profileEmployeeTableFragment, incidenceTableFragment).commit();
             });
+
+
         });
     }
 
