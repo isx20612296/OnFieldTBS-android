@@ -44,13 +44,13 @@ public class IncidenceAdapter extends RecyclerView.Adapter<IncidenceAdapter.View
         holder.binding.rowPriority.setText(priority);
         switch (priority){
             case "Baja":
-                holder.binding.rowPriority.setTextColor(context.getResources().getColor(R.color.green));
+                holder.binding.rowPriority.setTextColor(context.getResources().getColor(R.color.green, null));
                 break;
             case "Media":
-                holder.binding.rowPriority.setTextColor(context.getResources().getColor(R.color.orange));
+                holder.binding.rowPriority.setTextColor(context.getResources().getColor(R.color.orange, null));
                 break;
             case "Alta":
-                holder.binding.rowPriority.setTextColor(context.getResources().getColor(R.color.red));
+                holder.binding.rowPriority.setTextColor(context.getResources().getColor(R.color.red, null));
                 break;
         }
 

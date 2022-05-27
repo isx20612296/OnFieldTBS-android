@@ -1,20 +1,41 @@
 package com.example.onfieldtbs_android;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.onfieldtbs_android.adapter.CommentAdapter;
 import com.example.onfieldtbs_android.databinding.ActivityIncidenceDetailBinding;
-import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
+import com.example.onfieldtbs_android.models.Employee;
 import com.example.onfieldtbs_android.models.Incidence;
+import com.example.onfieldtbs_android.models.Technician;
+import com.example.onfieldtbs_android.service.api.Login;
+import com.example.onfieldtbs_android.service.api.Model.ApiClient;
+import com.example.onfieldtbs_android.service.api.Model.ModelList;
+import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
+import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
+import com.example.onfieldtbs_android.utils.SpinnerInfo;
 import com.example.onfieldtbs_android.utils.Utils;
 
-import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import retrofit2.Call;
+import retrofit2.Response;
+
 
 public class IncidenceDetailActivity extends AppCompatActivity {
 
@@ -39,11 +60,28 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         String fullTechnicianName = incidence.getTechnician().getName() + " " + incidence.getTechnician().getLastname();
         String fullTechnicianUserName = "@" + incidence.getTechnician().getUser().getUsername();
 
+        // State and Priority buttons
+        binding.detailState.setOnClickListener(view -> showAlertDialog("Estado", SpinnerInfo.detailStates, binding.detailState));
+        binding.detailPriority.setOnClickListener(view -> showAlertDialog("Prioridad", SpinnerInfo.detailPriorities, binding.detailPriority));
+
+        // Technician button
+//        ApiClient.getApi().getAllTechnicians().enqueue((RetrofitCallBack<ModelList<Technician>>) (call, response) -> {
+//            Map<String, String> technicianName = response.body().result.stream()
+//                    .map(technician -> {
+//                        Map<String,String> mapTechnician = new HashMap<>();
+//                        mapTechnician.put(technician.getUser().getUsername(), technician.getName() + " " + technician.getLastname());
+//                        return mapTechnician;
+//                    }).collect(Collectors.toMap(Map::get))
+//            binding.detailCardTechnician.setOnClickListener(view -> showTechnicianAlertDialog("Técnicos", technicianName, binding.detailTechnician));
+//        });
+
+
         binding.detailTitle.setText(incidence.getTitle());
         binding.detailCreationData.setText(Utils.formatDateTime(incidence.getCreatedAt()));
         binding.detailClosedData.setText(incidence.getClosedAt() == null ? "" : incidence.getClosedAt());
         binding.detailState.setText(incidence.getState());
         binding.detailPriority.setText(incidence.getPriority());
+        setButtonColor(incidence.getPriority(), binding.detailPriority);
         binding.detailEmployee.setText(fullEmployeeName);
         binding.detailCompany.setText(incidence.getCompany().getName());
         binding.detailMessage.setText(incidence.getDescription());
@@ -61,5 +99,46 @@ public class IncidenceDetailActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+    }
+
+    private void showAlertDialog(String title, String[] detailData, Button button) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setItems(detailData, (dialogInterface, i) -> {
+            button.setText(detailData[i]);
+            setButtonColor(detailData[i], button);
+            dialogInterface.dismiss();
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+//    private void showTechnicianAlertDialog(String title, List<Map<String, String>> names, TextView technicianName) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle(title);
+//
+//        String[] namesArray = names.toArray(new String[0]);
+//        builder.setItems(namesArray, (DialogInterface.OnClickListener) (dialogInterface, i) -> {
+//
+//            binding.detailTechnician.setText(namesArray[i].split(":")[0]);
+//            binding.detailUsername.setText("@" + namesArray[i].split(":")[1]);
+//            dialogInterface.dismiss();
+//        });
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+//    }
+
+    private void setButtonColor(String detailData, Button button) {
+        switch (detailData){
+            case "Baja":
+                button.setTextColor(getResources().getColor(R.color.green, null));
+                break;
+            case "Media":
+                button.setTextColor(getResources().getColor(R.color.orange, null));
+                break;
+            case "Alta":
+                button.setTextColor(getResources().getColor(R.color.red, null));
+                break;
+        }
     }
 }

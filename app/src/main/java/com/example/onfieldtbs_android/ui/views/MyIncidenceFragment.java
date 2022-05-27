@@ -27,6 +27,7 @@ import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.example.onfieldtbs_android.ui.viewModels.LiveInfo;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
+import com.example.onfieldtbs_android.utils.SpinnerInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,17 +68,11 @@ public class MyIncidenceFragment extends Fragment {
         // View all incidences Button
         //TODO:  Refactor
 
-        // Set lists data
-        states = new String[]{"Estado", "Abierto", "En progreso", "Pausado", "Cerrado"};
-        priorities = new String[] {"Prioridad", "Alta", "Media", "Baja"};
-        datesSorting = new String[]{"Fecha", "Recientes", "Antiguos"};
-        searchOptions = new String[]{"Buscar por...", "Título", "Técnico", "Empleado", "Empresa"};
-
         // Create Spinner adapters
-        statesAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, states);
-        prioritiesAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, priorities);
-        datesSortingAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, datesSorting);
-        searchOptionsAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, searchOptions);
+        statesAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, SpinnerInfo.filterStates);
+        prioritiesAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, SpinnerInfo.filterPriorities);
+        datesSortingAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, SpinnerInfo.filterDatesSorting);
+        searchOptionsAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, SpinnerInfo.filterSearchOptions);
 
         // Set adapters to Spinners
         binding.incidenceStateSpinner.setAdapter(statesAdapter);

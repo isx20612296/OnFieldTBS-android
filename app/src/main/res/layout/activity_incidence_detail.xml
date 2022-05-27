@@ -85,40 +85,67 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailCreation" />
 
-            <Button
-                android:id="@+id/detailState"
+            <Spinner
+                android:id="@+id/detailStateSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
-                android:clickable="false"
-                android:fontFamily="@font/open_sans"
                 android:paddingLeft="30dp"
                 android:paddingTop="0dp"
                 android:paddingRight="30dp"
                 android:paddingBottom="0dp"
-                android:text="Abierto"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/detailPrioritySpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:paddingLeft="30dp"
+                android:paddingTop="0dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="0dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/detailStateSpinner"
+                app:layout_constraintStart_toStartOf="@id/detailStateSpinner"
+                app:layout_constraintTop_toBottomOf="@id/detailStateSpinner" />
+
+            <Button
+                android:id="@+id/detailState"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:fontFamily="@font/open_sans"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:text="En progreso"
                 android:textAllCaps="false"
                 android:textColor="@color/secondaryDarkColor"
                 android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible"
                 app:cornerRadius="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/detailPriority"
-                android:layout_width="wrap_content"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
-                android:clickable="false"
+                android:clickable="true"
                 android:fontFamily="@font/open_sans"
-                android:paddingLeft="30dp"
                 android:paddingTop="0dp"
-                android:paddingRight="30dp"
                 android:paddingBottom="0dp"
                 android:text="Media"
                 android:textAllCaps="false"
                 android:textColor="@color/secondaryDarkColor"
                 android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="visible"
                 app:cornerRadius="30dp"
                 app:layout_constraintEnd_toEndOf="@+id/detailState"
                 app:layout_constraintStart_toStartOf="@+id/detailState"
@@ -218,7 +245,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/detailCardD"
+        android:id="@+id/detailCardTechnician"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -276,7 +303,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailCardD"
+        app:layout_constraintTop_toBottomOf="@+id/detailCardTechnician"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
