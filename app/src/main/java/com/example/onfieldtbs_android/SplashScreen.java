@@ -1,20 +1,25 @@
 package com.example.onfieldtbs_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.onfieldtbs_android.databinding.ActivitySplashScreenBinding;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SplashScreen extends AppCompatActivity {
 
     private static final int SPLASH_SCREEN = 5000;
+    private static final int FRAME_DURATION = 100;
 
     private ActivitySplashScreenBinding binding;
     private ObjectAnimator animationScaleX;
@@ -29,6 +34,12 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // TEST
+        AnimationDrawable animationLogo = new AnimationDrawable();
+        addFrames(animationLogo);
+        binding.splashLogo.setImageDrawable(animationLogo);
+        animationLogo.start();
 
         // Set title scale to minimum
         binding.splashTitle.setScaleX(0);
@@ -54,7 +65,20 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            this.finish();
         },SPLASH_SCREEN);
+
+    }
+
+    private void addFrames(AnimationDrawable animationLogo) {
+        List<Integer> images = new ArrayList<>(Arrays.asList(
+                R.drawable.logo_onfield,
+                R.drawable.logo_onfield2,
+                R.drawable.logo_onfield3,
+                R.drawable.logo_onfield4,
+                R.drawable.logo_onfield5
+                ));
+        images.forEach(image -> animationLogo.addFrame(ResourcesCompat.getDrawable(getResources(), image, null), FRAME_DURATION));
 
     }
 }
