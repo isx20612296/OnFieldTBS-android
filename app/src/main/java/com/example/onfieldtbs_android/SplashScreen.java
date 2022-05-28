@@ -35,7 +35,7 @@ public class SplashScreen extends AppCompatActivity {
         binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // TEST
+        // Logo Animation
         AnimationDrawable animationLogo = new AnimationDrawable();
         addFrames(animationLogo);
         binding.splashLogo.setImageDrawable(animationLogo);

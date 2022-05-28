@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,15 +66,17 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         binding.detailPriority.setOnClickListener(view -> showAlertDialog("Prioridad", SpinnerInfo.detailPriorities, binding.detailPriority));
 
         // Technician button
-//        ApiClient.getApi().getAllTechnicians().enqueue((RetrofitCallBack<ModelList<Technician>>) (call, response) -> {
-//            Map<String, String> technicianName = response.body().result.stream()
-//                    .map(technician -> {
-//                        Map<String,String> mapTechnician = new HashMap<>();
-//                        mapTechnician.put(technician.getUser().getUsername(), technician.getName() + " " + technician.getLastname());
-//                        return mapTechnician;
-//                    }).collect(Collectors.toMap(Map::get))
-//            binding.detailCardTechnician.setOnClickListener(view -> showTechnicianAlertDialog("Técnicos", technicianName, binding.detailTechnician));
-//        });
+        ApiClient.getApi().getAllTechnicians().enqueue((RetrofitCallBack<ModelList<Technician>>) (call, response) -> {
+            assert response.body() != null;
+            List<Technician> techniciansReduced = response.body().result.stream().map(technician -> {
+                Technician technicianTmp = new Technician();
+                technicianTmp.setUser(technician.getUser());
+                technicianTmp.setName(technician.getName());
+                technicianTmp.setLastname(technician.getLastname());
+                return technicianTmp;
+            }).collect(Collectors.toList());
+            binding.detailCardTechnician.setOnClickListener(view -> showTechnicianAlertDialog(techniciansReduced, binding.detailTechnician));
+        });
 
 
         binding.detailTitle.setText(incidence.getTitle());
@@ -107,26 +110,35 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         builder.setItems(detailData, (dialogInterface, i) -> {
             button.setText(detailData[i]);
             setButtonColor(detailData[i], button);
+            // POST ACTIONS
+
+
             dialogInterface.dismiss();
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
-//    private void showTechnicianAlertDialog(String title, List<Map<String, String>> names, TextView technicianName) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle(title);
-//
-//        String[] namesArray = names.toArray(new String[0]);
-//        builder.setItems(namesArray, (DialogInterface.OnClickListener) (dialogInterface, i) -> {
-//
-//            binding.detailTechnician.setText(namesArray[i].split(":")[0]);
-//            binding.detailUsername.setText("@" + namesArray[i].split(":")[1]);
-//            dialogInterface.dismiss();
-//        });
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-//    }
+    @SuppressLint("SetTextI18n")
+    private void showTechnicianAlertDialog(List<Technician> technicianReduced, TextView technicianText) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Técnicos");
+
+        String[] namesArray = technicianReduced.stream()
+                .map(technician -> technician.getName() + " " + technician.getLastname())
+                .toArray(String[]::new);
+
+        builder.setItems(namesArray, (dialogInterface, i) -> {
+            binding.detailTechnician.setText(namesArray[i]);
+            binding.detailUsername.setText("@" + technicianReduced.get(i).getUser().getUsername());
+            // POST ACTIONS
+
+
+            dialogInterface.dismiss();
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
     private void setButtonColor(String detailData, Button button) {
         switch (detailData){
