@@ -1,7 +1,16 @@
 package com.example.onfieldtbs_android.ui.views;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -9,11 +18,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.databinding.FragmentProfileBinding;
 import com.example.onfieldtbs_android.models.Incidence;
@@ -22,14 +33,23 @@ import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.Model.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
+import com.example.onfieldtbs_android.service.firebase.FirebaseSingleton;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.example.onfieldtbs_android.ui.viewModels.LiveInfo;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 
 public class ProfileFragment extends Fragment {
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private FragmentProfileBinding binding;
 
@@ -56,6 +76,10 @@ public class ProfileFragment extends Fragment {
             binding.profileEmail.setText(loggedTechnician.getEmail());
             binding.profilePhone.setText(loggedTechnician.getPhone());
 
+            // Profile Image
+            FirebaseSingleton.getReference("profile-images/profile_" + Login.getInstance().getUsername()).getDownloadUrl()
+                    .addOnSuccessListener(uri -> Glide.with(getContext()).load(uri).into(binding.profileImage));
+
             // View Model
             final IncidencesViewModel incidencesViewModel = new ViewModelProvider(requireActivity()).get(IncidencesViewModel.class);
 
@@ -65,6 +89,27 @@ public class ProfileFragment extends Fragment {
                 getChildFragmentManager().beginTransaction().replace(R.id.profileTableFragment, tableFragment).commit();
             });
         });
+
+        binding.profileImage.setOnClickListener(viewImage -> {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = intent.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+            UploadTask uploadTask = FirebaseSingleton.getReference("profile-images/profile_" + Login.getInstance().getUsername()).putBytes(data);
+            uploadTask.addOnFailureListener(e -> Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show())
+                    .addOnSuccessListener(taskSnapshot -> Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show());
+        }
     }
 
     @Override
