@@ -109,6 +109,7 @@ public class ProfileFragment extends Fragment {
             UploadTask uploadTask = FirebaseSingleton.getReference("profile-images/profile_" + Login.getInstance().getUsername()).putBytes(data);
             uploadTask.addOnFailureListener(e -> Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show())
                     .addOnSuccessListener(taskSnapshot -> Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show());
+            binding.profileImage.setImageBitmap(imageBitmap);
         }
     }
 
