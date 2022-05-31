@@ -61,6 +61,9 @@ public class SplashScreen extends AppCompatActivity {
         // Animations start
         animatorTitle.start();
 
+        // Logo animation stop
+        new Handler().postDelayed(animationLogo::stop, 3000);
+
         // Go to login
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(this, LoginActivity.class);
