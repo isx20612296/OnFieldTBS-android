@@ -10,7 +10,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/incidenceInputLayout"
+        android:id="@+id/allIncidenceInputLayout"
         android:layout_width="0dp"
         android:layout_height="47dp"
         android:layout_marginTop="12dp"
@@ -19,18 +19,18 @@
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spaceA"
-        app:layout_constraintTop_toBottomOf="@+id/spaceA">
+        app:layout_constraintStart_toEndOf="@+id/allSpaceA"
+        app:layout_constraintTop_toBottomOf="@+id/allSpaceA">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/incidenceEditText"
+            android:id="@+id/allIncidenceEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_search" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/incidenceSearchButton"
+        android:id="@+id/allIncidenceSearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -40,10 +40,10 @@
         android:text="@string/incidence_search"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incidenceDateSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/allIncidenceDateSpinner" />
 
     <Space
-        android:id="@+id/spaceA"
+        android:id="@+id/allSpaceA"
         android:layout_width="0.1dp"
         android:layout_height="48dp"
         android:layout_weight="1"
@@ -53,47 +53,47 @@
         />
 
     <Spinner
-        android:id="@+id/incidenceSearchSpinner"
+        android:id="@+id/allIncidenceSearchSpinner"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/incidenceInputLayout"
-        app:layout_constraintEnd_toStartOf="@+id/spaceA"
+        app:layout_constraintBottom_toBottomOf="@+id/allIncidenceInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/allSpaceA"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/incidenceInputLayout" />
+        app:layout_constraintTop_toTopOf="@+id/allIncidenceInputLayout" />
 
     <Spinner
-        android:id="@+id/incidencePrioritySpinner"
+        android:id="@+id/allIncidencePrioritySpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.553"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incidenceInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/allIncidenceInputLayout" />
 
     <Spinner
-        android:id="@+id/incidenceStateSpinner"
+        android:id="@+id/allIncidenceStateSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/incidencePrioritySpinner"
-        app:layout_constraintTop_toTopOf="@+id/incidencePrioritySpinner"
+        app:layout_constraintEnd_toStartOf="@+id/allIncidencePrioritySpinner"
+        app:layout_constraintTop_toTopOf="@+id/allIncidencePrioritySpinner"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Spinner
-        android:id="@+id/incidenceDateSpinner"
+        android:id="@+id/allIncidenceDateSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/incidencePrioritySpinner"
-        app:layout_constraintTop_toTopOf="@+id/incidencePrioritySpinner" />
+        app:layout_constraintStart_toEndOf="@+id/allIncidencePrioritySpinner"
+        app:layout_constraintTop_toTopOf="@+id/allIncidencePrioritySpinner" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/incidenceTable"
+        android:id="@+id/allIncidenceTable"
         android:name="com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/incidenceSearchButton"
+        app:layout_constraintTop_toBottomOf="@id/allIncidenceSearchButton"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 

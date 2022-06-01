@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +28,10 @@ import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.example.onfieldtbs_android.ui.viewModels.LiveInfo;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
+import com.example.onfieldtbs_android.utils.OnFieldItemSelected;
 import com.example.onfieldtbs_android.utils.SpinnerInfo;
+import com.example.onfieldtbs_android.utils.filter.Filters;
+import com.example.onfieldtbs_android.utils.filter.MyFilters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +42,6 @@ public class MyIncidenceFragment extends Fragment {
 
     private FragmentMyIncidenceBinding binding;
 
-    private String [] states;
-    private String [] priorities;
-    private String [] datesSorting;
-    private String [] searchOptions;
     private ArrayAdapter<String> statesAdapter;
     private ArrayAdapter<String> prioritiesAdapter;
     private ArrayAdapter<String> datesSortingAdapter;
@@ -64,9 +64,11 @@ public class MyIncidenceFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // ViewModel
+        final IncidencesViewModel incidencesViewModel = new ViewModelProvider(requireActivity()).get(IncidencesViewModel.class);
 
-        // View all incidences Button
-        //TODO:  Refactor
+        // Filters
+        Filters myFilters = new MyFilters(incidencesViewModel, getViewLifecycleOwner());
 
         // Create Spinner adapters
         statesAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, SpinnerInfo.filterStates);
@@ -75,74 +77,44 @@ public class MyIncidenceFragment extends Fragment {
         searchOptionsAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, SpinnerInfo.filterSearchOptions);
 
         // Set adapters to Spinners
-        binding.incidenceStateSpinner.setAdapter(statesAdapter);
-        binding.incidencePrioritySpinner.setAdapter(prioritiesAdapter);
-        binding.incidenceDateSpinner.setAdapter(datesSortingAdapter);
-        binding.incidenceSearchSpinner.setAdapter(searchOptionsAdapter);
+        binding.myIncidenceStateSpinner.setAdapter(statesAdapter);
+        binding.myIncidencePrioritySpinner.setAdapter(prioritiesAdapter);
+        binding.myIncidenceDateSpinner.setAdapter(datesSortingAdapter);
+        binding.myIncidenceSearchSpinner.setAdapter(searchOptionsAdapter);
 
         // Set default values
-        binding.incidenceStateSpinner.setSelection(0);
-        binding.incidencePrioritySpinner.setSelection(0);
-        binding.incidenceDateSpinner.setSelection(0);
-        binding.incidenceSearchSpinner.setSelection(0);
+        binding.myIncidenceStateSpinner.setSelection(0);
+        binding.myIncidencePrioritySpinner.setSelection(0);
+        binding.myIncidenceDateSpinner.setSelection(0);
+        binding.myIncidenceSearchSpinner.setSelection(0);
 
         // Set actions to do when item selected
-        binding.incidenceStateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
+        binding.myIncidenceStateSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, stateView, position, l) -> {
+//            IncidenceTableFragment tableFragment;
+//            if (adapterView.getItemAtPosition(position).equals("Estado")) tableFragment = new IncidenceTableFragment(myFilters.deleteStateFilter());
+//            else tableFragment = new IncidenceTableFragment(myFilters.addStateFilter(adapterView.getItemAtPosition(position).toString()));
+//            getChildFragmentManager().beginTransaction().replace(R.id.myIncidenceTable, tableFragment).commit();
         });
 
-        binding.incidencePrioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
+        binding.myIncidencePrioritySpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, priorityView, position, l) -> {
+//            IncidenceTableFragment tableFragment;
+//            if (adapterView.getItemAtPosition(position).equals("Prioridad")) tableFragment = new IncidenceTableFragment(myFilters.deletePriorityFilter());
+//            else tableFragment = new IncidenceTableFragment(myFilters.addPriorityFilter(adapterView.getItemAtPosition(position).toString()));
+//            getChildFragmentManager().beginTransaction().replace(R.id.myIncidenceTable, tableFragment).commit();
         });
 
-        binding.incidenceDateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
+        binding.myIncidenceDateSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, dateView, position, l) -> {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
         });
 
-        binding.incidenceSearchSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("INCIDENCE", "Selected: " + adapterView.getItemAtPosition(i).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("INCIDENCE", "Selected: NONE");
-            }
+        binding.myIncidenceSearchSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, searchView, position, l) -> {
         });
 
 
-        // ViewModel
-        final IncidencesViewModel incidencesViewModel = new ViewModelProvider(requireActivity()).get(IncidencesViewModel.class);
-
-        // Init Recycler view data
+//         Init Recycler view data
        incidencesViewModel.getLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> {
            IncidenceTableFragment tableFragment = new IncidenceTableFragment(liveInfo.userIncidences);
-           getChildFragmentManager().beginTransaction().replace(R.id.incidenceTable, tableFragment).commit();
+           getChildFragmentManager().beginTransaction().replace(R.id.myIncidenceTable, tableFragment).commit();
        });
 
 

@@ -26,12 +26,12 @@
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.33" />
         <entry key="app/src/main/res/layout/comment_row.xml" value="0.38219895287958117" />
         <entry key="app/src/main/res/layout/detail_spinner_list.xml" value="0.75" />
-        <entry key="app/src/main/res/layout/fragment_all_incidence.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/fragment_all_incidence.xml" value="0.2953216374269006" />
         <entry key="app/src/main/res/layout/fragment_incidence.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_incidence_detail.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_incidence_table.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.35104166666666664" />
-        <entry key="app/src/main/res/layout/fragment_my_incidence.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/layout/fragment_my_incidence.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_test.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/incidence_row.xml" value="0.67" />
