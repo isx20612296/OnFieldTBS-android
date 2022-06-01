@@ -85,33 +85,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailCreation" />
 
-            <Spinner
-                android:id="@+id/detailStateSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:paddingLeft="30dp"
-                android:paddingTop="0dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="0dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Spinner
-                android:id="@+id/detailPrioritySpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:paddingLeft="30dp"
-                android:paddingTop="0dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="0dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@id/detailStateSpinner"
-                app:layout_constraintStart_toStartOf="@id/detailStateSpinner"
-                app:layout_constraintTop_toBottomOf="@id/detailStateSpinner" />
-
             <Button
                 android:id="@+id/detailState"
                 android:layout_width="125dp"
@@ -293,6 +266,22 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/detailAddComment"
+        android:layout_width="85dp"
+        android:layout_height="35dp"
+        android:fontFamily="@font/open_sans"
+        android:paddingLeft="12dp"
+        android:paddingTop="0dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="0dp"
+        android:text="Añadir"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/detailRecycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detailCardTechnician" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detailRecycler"

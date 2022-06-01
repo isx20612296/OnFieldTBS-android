@@ -12,7 +12,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.onfieldtbs_android.adapter.CommentAdapter;
 import com.example.onfieldtbs_android.databinding.ActivityIncidenceDetailBinding;
@@ -75,7 +77,7 @@ public class IncidenceDetailActivity extends AppCompatActivity {
                 technicianTmp.setLastname(technician.getLastname());
                 return technicianTmp;
             }).collect(Collectors.toList());
-            binding.detailCardTechnician.setOnClickListener(view -> showTechnicianAlertDialog(techniciansReduced, binding.detailTechnician));
+            binding.detailCardTechnician.setOnClickListener(view -> showTechnicianAlertDialog(techniciansReduced));
         });
 
 
@@ -102,12 +104,39 @@ public class IncidenceDetailActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Add Comment button Listener
+        binding.detailAddComment.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            EditText editText = new EditText(this);
+            builder.setTitle("Escribe tu comentario");
+            builder.setView(editText);
+            builder.setPositiveButton("Publicar", (dialogInterface, i) -> {
+                if (editText.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "Error: El comentario está vacío", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // POST ACTIONS
+
+                binding.detailRecycler.setAdapter(new CommentAdapter(incidence.getComments(), getApplicationContext()));
+                binding.detailRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                dialogInterface.dismiss();
+            });
+            builder.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.dismiss());
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        });
+
     }
 
     private void showAlertDialog(String title, String[] detailData, Button button) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setItems(detailData, (dialogInterface, i) -> {
+            if (detailData[i].equals("Cerrado")) {
+                button.setClickable(false);
+                binding.detailPriority.setClickable(false);
+                // POST CLOSE DATE
+            }
             button.setText(detailData[i]);
             setButtonColor(detailData[i], button);
             // POST ACTIONS
@@ -120,7 +149,7 @@ public class IncidenceDetailActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    private void showTechnicianAlertDialog(List<Technician> technicianReduced, TextView technicianText) {
+    private void showTechnicianAlertDialog(List<Technician> technicianReduced) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Técnicos");
 
