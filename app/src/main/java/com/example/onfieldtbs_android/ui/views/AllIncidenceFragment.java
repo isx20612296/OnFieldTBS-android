@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onfieldtbs_android.R;
@@ -17,13 +18,15 @@ import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
 import com.example.onfieldtbs_android.databinding.FragmentAllIncidenceBinding;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
+import com.example.onfieldtbs_android.ui.viewModels.LiveInfo;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
-import com.example.onfieldtbs_android.utils.filter.AllFilters;
 import com.example.onfieldtbs_android.utils.OnFieldItemSelected;
 import com.example.onfieldtbs_android.utils.SpinnerInfo;
 import com.example.onfieldtbs_android.utils.filter.Filters;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 public class AllIncidenceFragment extends Fragment {
@@ -36,7 +39,8 @@ public class AllIncidenceFragment extends Fragment {
     private ArrayAdapter<String> searchOptionsAdapter;
     private ArrayList<Incidence> incidences;
     private IncidenceAdapter incidenceAdapter;
-
+    private String state = "none";
+    private String priority = "none";
 
 
     @Override
@@ -54,9 +58,7 @@ public class AllIncidenceFragment extends Fragment {
 
         // ViewModel
         final IncidencesViewModel incidencesViewModel = new ViewModelProvider(requireActivity()).get(IncidencesViewModel.class);
-
-        // Filters
-        Filters allFilters = new AllFilters(incidencesViewModel, getViewLifecycleOwner());
+        incidencesViewModel.getLiveInfo();
 
         // Create Spinner adapters
         statesAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_list, SpinnerInfo.filterStates);
@@ -78,19 +80,14 @@ public class AllIncidenceFragment extends Fragment {
 
         // Set actions to do when item selected
         binding.allIncidenceStateSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, stateView, position, l) -> {
-            IncidenceTableFragment tableFragment;
-            if (adapterView.getItemAtPosition(position).equals("Estado")) tableFragment = new IncidenceTableFragment(allFilters.deleteStateFilter());
-            else tableFragment = new IncidenceTableFragment(allFilters.addStateFilter(adapterView.getItemAtPosition(position).toString()));
-            getChildFragmentManager().beginTransaction().replace(R.id.allIncidenceTable, tableFragment).commit();
+            state = adapterView.getItemAtPosition(position).toString();
+            incidencesViewModel.getDataLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> replaceTable(state, priority, liveInfo));
         });
 
         binding.allIncidencePrioritySpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, priorityView, position, l) -> {
-            IncidenceTableFragment tableFragment;
-            if (adapterView.getItemAtPosition(position).equals("Prioridad")) tableFragment = new IncidenceTableFragment(allFilters.deletePriorityFilter());
-            else tableFragment = new IncidenceTableFragment(allFilters.addPriorityFilter(adapterView.getItemAtPosition(position).toString()));
-            getChildFragmentManager().beginTransaction().replace(R.id.allIncidenceTable, tableFragment).commit();
+            priority = adapterView.getItemAtPosition(position).toString();
+            incidencesViewModel.getDataLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> replaceTable(state, priority, liveInfo));
         });
-
         binding.allIncidenceDateSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, dateView, position, l) -> {
 
         });
@@ -98,16 +95,11 @@ public class AllIncidenceFragment extends Fragment {
         binding.allIncidenceSearchSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, searchView, position, l) -> {
 
         });
+    }
 
-
-
-
-//         Init Recycler view data
-//        incidencesViewModel.getLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> {
-//            IncidenceTableFragment tableFragment = new IncidenceTableFragment(liveInfo.allIncidences);
-//            getChildFragmentManager().beginTransaction().replace(R.id.allIncidenceTable, tableFragment).commit();
-//        });
-
+    private void replaceTable(String state, String priority, LiveInfo liveInfo) {
+        IncidenceTableFragment incidenceTableFragment = new IncidenceTableFragment(liveInfo.allIncidences.stream().filter(Filters.byPriority(priority)).filter(Filters.byState(state)).collect(Collectors.toList()));
+        getChildFragmentManager().beginTransaction().replace(R.id.allIncidenceTable, incidenceTableFragment).commit();
     }
 
     @Override
