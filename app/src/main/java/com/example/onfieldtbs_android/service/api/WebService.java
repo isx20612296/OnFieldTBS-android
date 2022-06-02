@@ -1,4 +1,4 @@
-package com.example.onfieldtbs_android.service.api.Model;
+package com.example.onfieldtbs_android.service.api;
 
 import com.example.onfieldtbs_android.models.Comment;
 import com.example.onfieldtbs_android.models.Company;
@@ -6,6 +6,7 @@ import com.example.onfieldtbs_android.models.Employee;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.models.Level;
 import com.example.onfieldtbs_android.models.Technician;
+import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 
 

@@ -8,11 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.onfieldtbs_android.service.api.LoginService;
 import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
-import com.example.onfieldtbs_android.service.api.Model.ApiClient;
-import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 

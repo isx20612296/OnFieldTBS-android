@@ -2,42 +2,28 @@ package com.example.onfieldtbs_android;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.onfieldtbs_android.adapter.CommentAdapter;
 import com.example.onfieldtbs_android.databinding.ActivityIncidenceDetailBinding;
-import com.example.onfieldtbs_android.models.Employee;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.models.Technician;
-import com.example.onfieldtbs_android.service.api.Login;
-import com.example.onfieldtbs_android.service.api.Model.ApiClient;
+import com.example.onfieldtbs_android.service.api.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
-import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
-import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
+import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.utils.SpinnerInfo;
 import com.example.onfieldtbs_android.utils.Utils;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 
 public class IncidenceDetailActivity extends AppCompatActivity {

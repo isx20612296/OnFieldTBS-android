@@ -1,4 +1,4 @@
-package com.example.onfieldtbs_android.service.api.Model;
+package com.example.onfieldtbs_android.service.api;
 
 import android.util.Log;
 

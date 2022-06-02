@@ -1,32 +1,21 @@
 package com.example.onfieldtbs_android.ui.views;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.adapter.IncidenceAdapter;
 import com.example.onfieldtbs_android.databinding.FragmentMyIncidenceBinding;
 import com.example.onfieldtbs_android.models.Incidence;
-import com.example.onfieldtbs_android.service.api.Login;
-import com.example.onfieldtbs_android.service.api.Model.ApiClient;
-import com.example.onfieldtbs_android.service.api.Model.ModelList;
-import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
-import com.example.onfieldtbs_android.ui.viewModels.LiveInfo;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
 import com.example.onfieldtbs_android.utils.OnFieldItemSelected;
 import com.example.onfieldtbs_android.utils.SpinnerInfo;
@@ -35,7 +24,6 @@ import com.example.onfieldtbs_android.utils.filter.MyFilters;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class MyIncidenceFragment extends Fragment {
@@ -94,6 +82,11 @@ public class MyIncidenceFragment extends Fragment {
 //            if (adapterView.getItemAtPosition(position).equals("Estado")) tableFragment = new IncidenceTableFragment(myFilters.deleteStateFilter());
 //            else tableFragment = new IncidenceTableFragment(myFilters.addStateFilter(adapterView.getItemAtPosition(position).toString()));
 //            getChildFragmentManager().beginTransaction().replace(R.id.myIncidenceTable, tableFragment).commit();
+            incidencesViewModel.getDataLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> {
+                List<Incidence> list = liveInfo.allIncidences;
+                // TODO: Trasladar aqui el codigo del Spinner
+
+            });
         });
 
         binding.myIncidencePrioritySpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, priorityView, position, l) -> {

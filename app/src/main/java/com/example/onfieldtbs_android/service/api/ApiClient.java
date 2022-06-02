@@ -1,8 +1,4 @@
-package com.example.onfieldtbs_android.service.api.Model;
-
-import android.util.Base64;
-
-import com.example.onfieldtbs_android.service.api.Login;
+package com.example.onfieldtbs_android.service.api;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

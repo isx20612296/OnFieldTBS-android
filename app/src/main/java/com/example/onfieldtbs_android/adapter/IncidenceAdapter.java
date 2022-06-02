@@ -13,8 +13,8 @@ import com.example.onfieldtbs_android.IncidenceDetailActivity;
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.databinding.IncidenceRowBinding;
 import com.example.onfieldtbs_android.models.Incidence;
-import com.example.onfieldtbs_android.service.api.Model.ApiClient;
-import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
+import com.example.onfieldtbs_android.service.api.ApiClient;
+import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.utils.Utils;
 
 import java.util.List;

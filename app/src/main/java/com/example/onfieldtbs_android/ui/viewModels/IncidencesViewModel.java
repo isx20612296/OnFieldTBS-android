@@ -9,21 +9,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
-import com.example.onfieldtbs_android.models.Employee;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.service.api.Login;
-import com.example.onfieldtbs_android.service.api.Model.ApiClient;
+import com.example.onfieldtbs_android.service.api.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
-import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
-import com.example.onfieldtbs_android.service.api.Model.WebService;
+import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 
 public class IncidencesViewModel extends AndroidViewModel {
@@ -67,5 +61,9 @@ public class IncidencesViewModel extends AndroidViewModel {
             mutableEmployeeIncidenceList.postValue(employeeIncidences);
         });
         return mutableEmployeeIncidenceList;
+    }
+
+    public LiveData<LiveInfo> getDataLiveInfo(){
+        return  mutableLiveInfo;
     }
 }

@@ -4,18 +4,11 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
@@ -27,24 +20,16 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.databinding.FragmentProfileBinding;
-import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.models.Technician;
 import com.example.onfieldtbs_android.service.api.Login;
-import com.example.onfieldtbs_android.service.api.Model.ApiClient;
-import com.example.onfieldtbs_android.service.api.Model.ModelList;
-import com.example.onfieldtbs_android.service.api.Model.RetrofitCallBack;
+import com.example.onfieldtbs_android.service.api.ApiClient;
+import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.service.firebase.FirebaseSingleton;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
-import com.example.onfieldtbs_android.ui.viewModels.LiveInfo;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.util.List;
 
 
 public class ProfileFragment extends Fragment {
