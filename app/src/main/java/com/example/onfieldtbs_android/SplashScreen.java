@@ -5,7 +5,9 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +31,7 @@ public class SplashScreen extends AppCompatActivity {
     private AnimatorSet animatorTitleStart = new AnimatorSet();
     private AnimatorSet animatorTitleReduce = new AnimatorSet();
     private AnimatorSet animatorTitle = new AnimatorSet();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,7 @@ public class SplashScreen extends AppCompatActivity {
 
         // Go to login
         new Handler().postDelayed(() -> {
+            SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             this.finish();

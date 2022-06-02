@@ -1,11 +1,14 @@
 package com.example.onfieldtbs_android;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.LoginService;
 import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
 
@@ -41,6 +44,15 @@ public class LoginActivity extends AppCompatActivity {
         });
         // TESTING ################################################################
 
+
+        // If logged, continue to Main
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+         if (sharedPreferences.getBoolean("isLogged", true)) {
+             LoginService service = new LoginService(getApplicationContext());
+            service.login(getPreferences(Context.MODE_PRIVATE).getString("username", ""), getPreferences(Context.MODE_PRIVATE).getString("password", ""), response -> {
+                if(response) startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            });
+        }
         // Button Listener
         binding.loginButton.setOnClickListener(view -> {
 
@@ -65,11 +77,14 @@ public class LoginActivity extends AppCompatActivity {
             // Go to Main Activity
             // TODO(Retrofit)
              LoginService service = new LoginService(getApplicationContext());
-             service.login(username, password, response -> {
-                if (response) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-            });
+                service.login(username, password, response -> {
+                    if (response) {
+                        sharedPreferences.edit().putBoolean("isLogged", true).apply();
+                        sharedPreferences.edit().putString("username", username).apply();
+                        sharedPreferences.edit().putString("password", password).apply();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }
+                });
         });
     }
 
