@@ -23,4 +23,26 @@ public class Filters {
         if (priority.equals("Prioridad")) return incidence -> true;
         return incidence -> incidence.getPriority().equals(priority);
     }
+
+    public static Predicate<Incidence> byTechnician(String name){
+        if (name.equals("")) return incidence -> true;
+        return incidence -> incidence.getTechnician().getName().toLowerCase().contains(name) || incidence.getTechnician().getLastname().toLowerCase().contains(name);
+    }
+
+    public static Predicate<Incidence> byTitle(String name){
+        if (name.equals("")) return incidence -> true;
+        return incidence -> incidence.getTitle().toLowerCase().contains(name);
+    }
+
+    public static Predicate<Incidence> byEmployee(String name){
+        if (name.equals("")) return incidence -> true;
+        return incidence -> incidence.getEmployee().getName().toLowerCase().contains(name);
+    }
+
+    public static Predicate<Incidence> byCompany(String name){
+        if (name.equals("")) return incidence -> true;
+        return incidence -> incidence.getCompany().getName().toLowerCase().contains(name);
+    }
+
+
 }

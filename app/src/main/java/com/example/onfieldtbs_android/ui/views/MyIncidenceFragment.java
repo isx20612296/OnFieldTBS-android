@@ -25,6 +25,7 @@ import com.example.onfieldtbs_android.utils.filter.Filters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
@@ -40,6 +41,7 @@ public class MyIncidenceFragment extends Fragment {
     private IncidenceAdapter incidenceAdapter;
     private String state = "none";
     private String priority = "none";
+    private Predicate<Incidence> searchFilter = incidence -> true;
 
 
 
@@ -81,24 +83,47 @@ public class MyIncidenceFragment extends Fragment {
         // Set actions to do when item selected
         binding.myIncidenceStateSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, stateView, position, l) -> {
             state = adapterView.getItemAtPosition(position).toString();
-            incidencesViewModel.getDataLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> replaceTable(state, priority, liveInfo));
+            incidencesViewModel.getDataLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> replaceTable(state, priority, searchFilter, liveInfo));
         });
 
         binding.myIncidencePrioritySpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, priorityView, position, l) -> {
             priority = adapterView.getItemAtPosition(position).toString();
-            incidencesViewModel.getDataLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> replaceTable(state, priority, liveInfo));
+            incidencesViewModel.getDataLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> replaceTable(state, priority, searchFilter, liveInfo));
         });
 
         binding.myIncidenceDateSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, dateView, position, l) -> {
 
         });
 
-        binding.myIncidenceSearchSpinner.setOnItemSelectedListener((OnFieldItemSelected) (adapterView, searchView, position, l) -> {
+        binding.myIncidenceSearchButton.setOnClickListener(viewSearch -> {
+            incidencesViewModel.getDataLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> {
+                switch (binding.myIncidenceSearchSpinner.getSelectedItem().toString()) {
+                    case "Técnico":
+                        searchFilter = Filters.byTechnician(binding.myIncidenceEditText.getText().toString());
+                        break;
+                    case "Título":
+                        searchFilter = Filters.byTitle(binding.myIncidenceEditText.getText().toString());
+                        break;
+                    case "Empleado":
+                        searchFilter = Filters.byEmployee(binding.myIncidenceEditText.getText().toString());
+                        break;
+                    case "Empresa":
+                        searchFilter = Filters.byCompany(binding.myIncidenceEditText.getText().toString());
+                        break;
+                    default:
+                        searchFilter = incidence -> true;
+                }
+                replaceTable(state, priority, searchFilter, liveInfo);
+            });
         });
     }
 
-    private void replaceTable(String state, String priority, LiveInfo liveInfo) {
-        IncidenceTableFragment incidenceTableFragment = new IncidenceTableFragment(liveInfo.userIncidences.stream().filter(Filters.byState(state)).filter(Filters.byPriority(priority)).collect(Collectors.toList()));
+    private void replaceTable(String state, String priority, Predicate<Incidence> searchFilter, LiveInfo liveInfo) {
+        IncidenceTableFragment incidenceTableFragment = new IncidenceTableFragment(liveInfo.userIncidences.stream()
+                .filter(Filters.byState(state))
+                .filter(Filters.byPriority(priority))
+                .filter(searchFilter)
+                .collect(Collectors.toList()));
         getChildFragmentManager().beginTransaction().replace(R.id.myIncidenceTable, incidenceTableFragment).commit();
     }
 

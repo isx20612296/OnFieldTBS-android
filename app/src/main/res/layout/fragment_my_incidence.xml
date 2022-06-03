@@ -8,11 +8,10 @@
     tools:context=".ui.views.MyIncidenceFragment">
 
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/myIncidenceInputLayout"
         android:layout_width="0dp"
-        android:layout_height="47dp"
+        android:layout_height="55dp"
         android:layout_marginTop="12dp"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxCornerRadiusTopEnd="20dp"
