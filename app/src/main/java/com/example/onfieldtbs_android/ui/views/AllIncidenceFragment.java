@@ -1,5 +1,11 @@
 package com.example.onfieldtbs_android.ui.views;
 
+
+import static com.example.onfieldtbs_android.utils.Strings.COMPANY;
+import static com.example.onfieldtbs_android.utils.Strings.EMPLOYEE;
+import static com.example.onfieldtbs_android.utils.Strings.TECHNICIAN;
+import static com.example.onfieldtbs_android.utils.Strings.TITLE;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +28,7 @@ import com.example.onfieldtbs_android.ui.viewModels.LiveInfo;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
 import com.example.onfieldtbs_android.utils.OnFieldItemSelected;
 import com.example.onfieldtbs_android.utils.SpinnerInfo;
+import com.example.onfieldtbs_android.utils.Strings;
 import com.example.onfieldtbs_android.utils.filter.Filters;
 
 import java.util.ArrayList;
@@ -98,16 +105,16 @@ public class AllIncidenceFragment extends Fragment {
         binding.allIncidenceSearchButton.setOnClickListener(viewSearch -> {
             incidencesViewModel.getDataLiveInfo().observe(getViewLifecycleOwner(), liveInfo -> {
                 switch (binding.allIncidenceSearchSpinner.getSelectedItem().toString()) {
-                    case "Técnico":
+                    case TECHNICIAN:
                         searchFilter = Filters.byTechnician(binding.allIncidenceEditText.getText().toString());
                         break;
-                    case "Título":
+                    case TITLE:
                         searchFilter = Filters.byTitle(binding.allIncidenceEditText.getText().toString());
                         break;
-                    case "Empleado":
+                    case EMPLOYEE:
                         searchFilter = Filters.byEmployee(binding.allIncidenceEditText.getText().toString());
                         break;
-                    case "Empresa":
+                    case COMPANY:
                         searchFilter = Filters.byCompany(binding.allIncidenceEditText.getText().toString());
                         break;
                     default:

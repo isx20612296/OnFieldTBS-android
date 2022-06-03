@@ -31,6 +31,7 @@ import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.service.firebase.FirebaseSingleton;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
+import com.example.onfieldtbs_android.utils.Strings;
 import com.example.onfieldtbs_android.utils.Utils;
 import com.google.firebase.storage.UploadTask;
 
@@ -93,7 +94,7 @@ public class ProfileFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Seguro que quieres cerrar sesion ?");
             builder.setPositiveButton("Si", ((dialogInterface, i) -> {
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Utils.PREFERENCES_FILE, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Strings.PREFERENCES_FILE, Context.MODE_PRIVATE);
                 sharedPreferences.edit().putBoolean("isLogged", false).apply();
                 getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 getActivity().finish();

@@ -15,6 +15,7 @@ import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
+import com.example.onfieldtbs_android.utils.Strings;
 import com.example.onfieldtbs_android.utils.Utils;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class IncidencesViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<LiveInfo> getLiveInfo(){
-        username = getApplication().getSharedPreferences(Utils.PREFERENCES_FILE, Context.MODE_PRIVATE).getString("username","");
+        username = getApplication().getSharedPreferences(Strings.PREFERENCES_FILE, Context.MODE_PRIVATE).getString("username","");
         ApiClient.getApi().getAllIncidences().enqueue((RetrofitCallBack<ModelList<Incidence>>) (call, response) -> {
             if (!response.isSuccessful()){
                 Log.e("My Incidences Error", response.message());

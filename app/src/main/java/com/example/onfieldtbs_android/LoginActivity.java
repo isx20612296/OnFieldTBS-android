@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.LoginService;
 import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
+import com.example.onfieldtbs_android.utils.Strings;
 import com.example.onfieldtbs_android.utils.Utils;
 
 import java.nio.charset.StandardCharsets;
@@ -79,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
             service.login(username, password, response -> {
                 if (response) {
-                    SharedPreferences.Editor editor = getSharedPreferences(Utils.PREFERENCES_FILE, MODE_PRIVATE).edit();
+                    SharedPreferences.Editor editor = getSharedPreferences(Strings.PREFERENCES_FILE, MODE_PRIVATE).edit();
                     editor.putBoolean("isLogged", true);
                     editor.putString("username", Login.getInstance().getUsername());
                     editor.putString("auth", Login.getAuth());

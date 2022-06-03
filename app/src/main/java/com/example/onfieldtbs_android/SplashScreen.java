@@ -16,8 +16,10 @@ import android.widget.Toast;
 
 import com.example.onfieldtbs_android.databinding.ActivitySplashScreenBinding;
 import com.example.onfieldtbs_android.service.api.Login;
+import com.example.onfieldtbs_android.utils.Strings;
 import com.example.onfieldtbs_android.utils.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -74,13 +76,15 @@ public class SplashScreen extends AppCompatActivity {
         // Logo animation stop
         new Handler().postDelayed(animationLogo::stop, 3000);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Utils.PREFERENCES_FILE,Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(Strings.PREFERENCES_FILE,Context.MODE_PRIVATE);
 
         // Go to login or main activity
         new Handler().postDelayed(() -> {
             Intent intent;
 
-            if (!sharedPreferences.getBoolean("isLogged", true)) {
+            if (!sharedPreferences.contains("isLogged")){
+                intent = new Intent(this, LoginActivity.class);
+            } else if (!sharedPreferences.getBoolean("isLogged", true)) {
                 intent = new Intent(this, LoginActivity.class);
             } else {
                 Login.initInstanceAuth(sharedPreferences.getString("auth",""));
