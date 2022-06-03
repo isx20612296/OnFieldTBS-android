@@ -45,12 +45,11 @@
     <Space
         android:id="@+id/allSpaceA"
         android:layout_width="0.1dp"
-        android:layout_height="48dp"
+        android:layout_height="0.1dp"
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/allIncidenceSearchSpinner"
