@@ -2,12 +2,15 @@ package com.example.onfieldtbs_android.ui.views;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.onfieldtbs_android.LoginActivity;
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.databinding.FragmentProfileBinding;
 import com.example.onfieldtbs_android.models.Technician;
@@ -27,6 +31,7 @@ import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.service.firebase.FirebaseSingleton;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.example.onfieldtbs_android.ui.views.components.IncidenceTableFragment;
+import com.example.onfieldtbs_android.utils.Utils;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
@@ -75,11 +80,27 @@ public class ProfileFragment extends Fragment {
             });
         });
 
+        // Profile Image
         binding.profileImage.setOnClickListener(viewImage -> {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
+        });
+
+        // Logout button
+        binding.profileLogout.setOnClickListener(viewLogout -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Seguro que quieres cerrar sesion ?");
+            builder.setPositiveButton("Si", ((dialogInterface, i) -> {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Utils.PREFERENCES_FILE, Context.MODE_PRIVATE);
+                sharedPreferences.edit().putBoolean("isLogged", false).apply();
+                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
+            }));
+            builder.setNegativeButton("No", ((dialogInterface, i) -> dialogInterface.dismiss()));
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         });
     }
 

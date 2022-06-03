@@ -149,19 +149,30 @@
         app:layout_constraintStart_toEndOf="@+id/spaceSampleB"
         app:layout_constraintTop_toTopOf="@+id/spaceSampleB" />
 
+    <Button
+        android:id="@+id/profileLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Cerrar sesión"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spaceSampleB" />
+
     <TextView
         android:id="@+id/profileIncidenceTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/open_sans"
         android:text="@string/profile_incidence_title"
         android:textColor="@color/primaryTextColor"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/profileLogout" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/profileTableFragment"

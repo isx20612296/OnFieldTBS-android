@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.LoginService;
 import com.example.onfieldtbs_android.databinding.ActivityLoginBinding;
+import com.example.onfieldtbs_android.utils.Utils;
+
+import java.nio.charset.StandardCharsets;
+import android.util.Base64;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,14 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         // TESTING ################################################################
 
 
-        // If logged, continue to Main
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-         if (sharedPreferences.getBoolean("isLogged", true)) {
-             LoginService service = new LoginService(getApplicationContext());
-            service.login(getPreferences(Context.MODE_PRIVATE).getString("username", ""), getPreferences(Context.MODE_PRIVATE).getString("password", ""), response -> {
-                if(response) startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            });
-        }
         // Button Listener
         binding.loginButton.setOnClickListener(view -> {
 
@@ -73,19 +71,28 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
+
             
             // Go to Main Activity
             // TODO(Retrofit)
-             LoginService service = new LoginService(getApplicationContext());
-                service.login(username, password, response -> {
-                    if (response) {
-                        sharedPreferences.edit().putBoolean("isLogged", true).apply();
-                        sharedPreferences.edit().putString("username", username).apply();
-                        sharedPreferences.edit().putString("password", password).apply();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    }
-                });
+            LoginService service = new LoginService(getApplicationContext());
+
+            service.login(username, password, response -> {
+                if (response) {
+                    SharedPreferences.Editor editor = getSharedPreferences(Utils.PREFERENCES_FILE, MODE_PRIVATE).edit();
+                    editor.putBoolean("isLogged", true);
+                    editor.putString("username", Login.getInstance().getUsername());
+                    editor.putString("auth", Login.getAuth());
+                    editor.apply();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+            });
+
         });
+    }
+
+    private void editPreferences() {
+
     }
 
     private void makeToast(String message){

@@ -11,12 +11,17 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.example.onfieldtbs_android.databinding.ActivitySplashScreenBinding;
+import com.example.onfieldtbs_android.service.api.Login;
+import com.example.onfieldtbs_android.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -32,9 +37,11 @@ public class SplashScreen extends AppCompatActivity {
     private AnimatorSet animatorTitleReduce = new AnimatorSet();
     private AnimatorSet animatorTitle = new AnimatorSet();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -67,10 +74,18 @@ public class SplashScreen extends AppCompatActivity {
         // Logo animation stop
         new Handler().postDelayed(animationLogo::stop, 3000);
 
-        // Go to login
+        SharedPreferences sharedPreferences = getSharedPreferences(Utils.PREFERENCES_FILE,Context.MODE_PRIVATE);
+
+        // Go to login or main activity
         new Handler().postDelayed(() -> {
-            SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-            Intent intent = new Intent(this, LoginActivity.class);
+            Intent intent;
+
+            if (!sharedPreferences.getBoolean("isLogged", true)) {
+                intent = new Intent(this, LoginActivity.class);
+            } else {
+                Login.initInstanceAuth(sharedPreferences.getString("auth",""));
+                intent = new Intent(this, MainActivity.class);
+            }
             startActivity(intent);
             this.finish();
         },SPLASH_SCREEN);

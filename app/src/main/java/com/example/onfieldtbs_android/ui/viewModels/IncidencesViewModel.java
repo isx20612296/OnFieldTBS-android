@@ -1,6 +1,7 @@
 package com.example.onfieldtbs_android.ui.viewModels;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
+import com.example.onfieldtbs_android.utils.Utils;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class IncidencesViewModel extends AndroidViewModel {
 
-    private static final String username = Login.getInstance().getUsername();
+    private String username;
     private MutableLiveData<LiveInfo> mutableLiveInfo = new MutableLiveData<>();
     private MutableLiveData<List<Incidence>> mutableEmployeeIncidenceList = new MutableLiveData<>();
     public LiveData<Integer> userIncidencesNumber = Transformations.switchMap(mutableLiveInfo, input -> new MutableLiveData<>(input.userIncidencesNumber));
@@ -33,6 +35,7 @@ public class IncidencesViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<LiveInfo> getLiveInfo(){
+        username = getApplication().getSharedPreferences(Utils.PREFERENCES_FILE, Context.MODE_PRIVATE).getString("username","");
         ApiClient.getApi().getAllIncidences().enqueue((RetrofitCallBack<ModelList<Incidence>>) (call, response) -> {
             if (!response.isSuccessful()){
                 Log.e("My Incidences Error", response.message());
