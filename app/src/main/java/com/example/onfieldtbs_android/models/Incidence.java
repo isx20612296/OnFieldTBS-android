@@ -10,7 +10,7 @@ public class Incidence implements Serializable {
     private UUID id;
     private String title;
     private String description;
-    private String state;
+    private String status;
     private String priority;
     private String createdAt;
     private String closedAt;
@@ -50,12 +50,12 @@ public class Incidence implements Serializable {
         this.description = description;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String state) {
+        this.status = state;
     }
 
     public String getPriority() {

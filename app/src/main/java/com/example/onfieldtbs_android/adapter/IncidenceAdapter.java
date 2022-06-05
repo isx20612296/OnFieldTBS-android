@@ -37,7 +37,7 @@ public class IncidenceAdapter extends RecyclerView.Adapter<IncidenceAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.binding.rowState.setText(incidences.get(position).getState());
+        holder.binding.rowState.setText(incidences.get(position).getStatus());
 
         // Priority text color
         String priority = incidences.get(position).getPriority();

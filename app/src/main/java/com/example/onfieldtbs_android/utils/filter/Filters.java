@@ -16,7 +16,7 @@ public class Filters {
 
     public static Predicate<Incidence> byState(String state) {
         if (state.equals("Estado")) return incidence -> true;
-        return incidence -> incidence.getState().equals(state);
+        return incidence -> incidence.getStatus().equals(state);
     }
 
     public static Predicate<Incidence> byPriority(String priority) {

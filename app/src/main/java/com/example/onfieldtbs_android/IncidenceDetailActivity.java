@@ -70,7 +70,7 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         binding.detailTitle.setText(incidence.getTitle());
         binding.detailCreationData.setText(Utils.formatDateTime(incidence.getCreatedAt()));
         binding.detailClosedData.setText(incidence.getClosedAt() == null ? "" : incidence.getClosedAt());
-        binding.detailState.setText(incidence.getState());
+        binding.detailState.setText(incidence.getStatus());
         binding.detailPriority.setText(incidence.getPriority());
         setButtonColor(incidence.getPriority(), binding.detailPriority);
         binding.detailEmployee.setText(fullEmployeeName);
