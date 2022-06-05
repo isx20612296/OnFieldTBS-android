@@ -1,7 +1,11 @@
 package com.example.onfieldtbs_android;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
@@ -14,14 +18,20 @@ import android.widget.Toast;
 
 import com.example.onfieldtbs_android.adapter.CommentAdapter;
 import com.example.onfieldtbs_android.databinding.ActivityIncidenceDetailBinding;
+import com.example.onfieldtbs_android.models.Comment;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.models.Technician;
 import com.example.onfieldtbs_android.service.api.ApiClient;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
+import com.example.onfieldtbs_android.ui.viewModels.CommentsViewModel;
+import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.example.onfieldtbs_android.utils.SpinnerInfo;
 import com.example.onfieldtbs_android.utils.Utils;
+import com.example.onfieldtbs_android.utils.mappers.CommentDate;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,8 +88,19 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         binding.detailMessage.setText(incidence.getDescription());
         binding.detailTechnician.setText(fullTechnicianName);
         binding.detailUsername.setText(fullTechnicianUserName);
-        binding.detailRecycler.setAdapter(new CommentAdapter(incidence.getComments(), getApplicationContext()));
-        binding.detailRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        // #####################################################################################################################
+        // Comments
+
+        CommentsViewModel commentsViewModel = new ViewModelProvider(this).get(CommentsViewModel.class);
+        commentsViewModel.getAllCommentOfIncidence(incidence.getId().toString());
+        commentsViewModel.readComments().observe(this, comments ->{
+            comments.forEach(c -> System.out.println(c.createdAt + " -> " + c.getMessage()));
+            binding.detailRecycler.setAdapter(new CommentAdapter(comments, getApplicationContext()));
+            binding.detailRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        } );
+        // #####################################################################################################################
+
 
         // Employee Detail On Click Listener
         binding.detailCardEmployee.setOnClickListener(view -> {
@@ -102,9 +123,8 @@ public class IncidenceDetailActivity extends AppCompatActivity {
                     return;
                 }
                 // POST ACTIONS
-
-                binding.detailRecycler.setAdapter(new CommentAdapter(incidence.getComments(), getApplicationContext()));
-                binding.detailRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+//                binding.detailRecycler.setAdapter(new CommentAdapter(incidence.getComments(), getApplicationContext()));
+//                binding.detailRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 dialogInterface.dismiss();
             });
             builder.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.dismiss());

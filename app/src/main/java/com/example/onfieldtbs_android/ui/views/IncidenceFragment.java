@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,19 @@ import android.view.ViewGroup;
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.adapter.ViewPagerIncidenceFragmentAdapter;
 import com.example.onfieldtbs_android.databinding.FragmentIncidenceBinding;
+import com.example.onfieldtbs_android.models.Comment;
+import com.example.onfieldtbs_android.models.Incidence;
+import com.example.onfieldtbs_android.service.api.ApiClient;
+import com.example.onfieldtbs_android.service.api.Model.ModelList;
+import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 public class IncidenceFragment extends Fragment {

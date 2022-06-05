@@ -25,6 +25,9 @@ public interface WebService {
     @GET("incidences/{id}")
     Call<Incidence> getIncidenceById(@Path("id") String id);
 
+    @GET("incidences/{id}/comments")
+    Call<ModelList<Comment>> getAllCommentsOfIncidence(@Path("id") String id);
+
     // Level Service
     @GET("levels")
     Call<ModelList<Level>> getAllLevels();
@@ -48,8 +51,6 @@ public interface WebService {
     Call<ModelList<Incidence>> getIncidenceByTechnicianId(@Path("id") String id);
 
     // Comment Service
-    @GET("comments")
-    Call<ModelList<Comment>> getAllComments();
 
     @GET("comments/{id}")
     Call<Comment> getCommentById(@Path("id") String id);
