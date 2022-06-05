@@ -18,10 +18,12 @@ import android.widget.Toast;
 
 import com.example.onfieldtbs_android.adapter.CommentAdapter;
 import com.example.onfieldtbs_android.databinding.ActivityIncidenceDetailBinding;
+import com.example.onfieldtbs_android.dto.RequestComment;
 import com.example.onfieldtbs_android.models.Comment;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.models.Technician;
 import com.example.onfieldtbs_android.service.api.ApiClient;
+import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.viewModels.CommentsViewModel;
@@ -34,6 +36,9 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 
 public class IncidenceDetailActivity extends AppCompatActivity {
@@ -79,7 +84,7 @@ public class IncidenceDetailActivity extends AppCompatActivity {
 
         binding.detailTitle.setText(incidence.getTitle());
         binding.detailCreationData.setText(Utils.formatDateTime(incidence.getCreatedAt()));
-        binding.detailClosedData.setText(incidence.getClosedAt() == null ? "" : incidence.getClosedAt());
+        binding.detailClosedData.setText(incidence.getClosedAt() == null ? "" : Utils.formatDateTime(incidence.getClosedAt()));
         binding.detailState.setText(incidence.getStatus());
         binding.detailPriority.setText(incidence.getPriority());
         setButtonColor(incidence.getPriority(), binding.detailPriority);
@@ -89,17 +94,16 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         binding.detailTechnician.setText(fullTechnicianName);
         binding.detailUsername.setText(fullTechnicianUserName);
 
-        // #####################################################################################################################
+
         // Comments
 
         CommentsViewModel commentsViewModel = new ViewModelProvider(this).get(CommentsViewModel.class);
         commentsViewModel.getAllCommentOfIncidence(incidence.getId().toString());
         commentsViewModel.readComments().observe(this, comments ->{
-            comments.forEach(c -> System.out.println(c.createdAt + " -> " + c.getMessage()));
             binding.detailRecycler.setAdapter(new CommentAdapter(comments, getApplicationContext()));
             binding.detailRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         } );
-        // #####################################################################################################################
+
 
 
         // Employee Detail On Click Listener
@@ -123,8 +127,7 @@ public class IncidenceDetailActivity extends AppCompatActivity {
                     return;
                 }
                 // POST ACTIONS
-//                binding.detailRecycler.setAdapter(new CommentAdapter(incidence.getComments(), getApplicationContext()));
-//                binding.detailRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    addNewComment(incidence.getId().toString(), editText.getText().toString());
                 dialogInterface.dismiss();
             });
             builder.setNegativeButton("Cancelar", (dialogInterface, i) -> dialogInterface.dismiss());
@@ -132,6 +135,21 @@ public class IncidenceDetailActivity extends AppCompatActivity {
             alertDialog.show();
         });
 
+    }
+
+    private void addNewComment(String incidenceId, String message) {
+        RequestComment newComment = new RequestComment();
+        newComment.message = message;
+        newComment.technicianUsername = Login.getInstance().getUsername();
+        ApiClient.getApi().addCommentToIncidence(incidenceId,  newComment)
+                .enqueue((RetrofitCallBack<Incidence>) (call, response) -> {
+                    if (!response.isSuccessful()){
+                        Log.e("Error added comment", response.message());
+                    }
+                    CommentsViewModel commentsViewModel = new ViewModelProvider(this).get(CommentsViewModel.class);
+                    commentsViewModel.getAllCommentOfIncidence(incidenceId);
+
+                });
     }
 
     private void showAlertDialog(String title, String[] detailData, Button button) {
