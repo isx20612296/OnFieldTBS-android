@@ -17,6 +17,7 @@ import java.util.List;
 public class CommentsViewModel extends ViewModel {
 
     private MutableLiveData<List<CommentDate>> commentsData = new MutableLiveData<>();
+    private MutableLiveData<IncidenceStatePriority> mutableStatePriority = new MutableLiveData<>();
 
 
     public void getAllCommentOfIncidence(String incidenceId){

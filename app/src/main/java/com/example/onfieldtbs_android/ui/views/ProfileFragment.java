@@ -121,6 +121,13 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        IncidencesViewModel incidencesViewModel = new ViewModelProvider(requireActivity()).get(IncidencesViewModel.class);
+        incidencesViewModel.getLiveInfo();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;

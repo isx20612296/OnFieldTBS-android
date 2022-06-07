@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.onfieldtbs_android.adapter.CommentAdapter;
 import com.example.onfieldtbs_android.databinding.ActivityIncidenceDetailBinding;
 import com.example.onfieldtbs_android.dto.RequestComment;
+import com.example.onfieldtbs_android.dto.RequestIncidence;
 import com.example.onfieldtbs_android.models.Comment;
 import com.example.onfieldtbs_android.models.Incidence;
 import com.example.onfieldtbs_android.models.Technician;
@@ -28,13 +30,16 @@ import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.viewModels.CommentsViewModel;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
+import com.example.onfieldtbs_android.ui.views.IncidenceFragment;
 import com.example.onfieldtbs_android.utils.SpinnerInfo;
 import com.example.onfieldtbs_android.utils.Utils;
 import com.example.onfieldtbs_android.utils.mappers.CommentDate;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
@@ -94,6 +99,24 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         binding.detailTechnician.setText(fullTechnicianName);
         binding.detailUsername.setText(fullTechnicianUserName);
 
+        // Incidence Update
+        binding.detailUpdateStatePriority.setOnClickListener(view -> {
+
+            RequestIncidence requestIncidence = new RequestIncidence();
+            requestIncidence.status = binding.detailState.getText().toString();
+            requestIncidence.priority = binding.detailPriority.getText().toString();
+            Log.d("ID", incidence.getId().toString());
+            Log.d("STATE", requestIncidence.status);
+            Log.d("PRIORITY", requestIncidence.priority);
+            ApiClient.getApi().updateIncidence(incidence.getId().toString(), requestIncidence).enqueue((RetrofitCallBack<Incidence>) (call, response) -> {
+                if (!response.isSuccessful()){
+                    Log.e("Error update incidence", response.message());
+                    return;
+                }
+                IncidencesViewModel incidencesViewModel = new ViewModelProvider(this).get(IncidencesViewModel.class);
+                incidencesViewModel.getLiveInfo();
+            });
+        });
 
         // Comments
 
@@ -156,16 +179,8 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setItems(detailData, (dialogInterface, i) -> {
-            if (detailData[i].equals("Cerrado")) {
-                button.setClickable(false);
-                binding.detailPriority.setClickable(false);
-                // POST CLOSE DATE
-            }
             button.setText(detailData[i]);
             setButtonColor(detailData[i], button);
-            // POST ACTIONS
-
-
             dialogInterface.dismiss();
         });
         AlertDialog alertDialog = builder.create();

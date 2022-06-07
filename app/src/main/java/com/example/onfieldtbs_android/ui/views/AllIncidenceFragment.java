@@ -6,6 +6,7 @@ import static com.example.onfieldtbs_android.utils.Strings.EMPLOYEE;
 import static com.example.onfieldtbs_android.utils.Strings.TECHNICIAN;
 import static com.example.onfieldtbs_android.utils.Strings.TITLE;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

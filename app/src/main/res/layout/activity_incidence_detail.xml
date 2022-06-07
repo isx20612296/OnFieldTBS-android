@@ -127,6 +127,23 @@
 
     </androidx.cardview.widget.CardView>
 
+    <Button
+        android:id="@+id/detailUpdateStatePriority"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:elevation="3dp"
+        android:fontFamily="@font/open_sans"
+        android:paddingLeft="12dp"
+        android:paddingTop="0dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="0dp"
+        android:text="Actualizar"
+        android:textAllCaps="false"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailCardA" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/detailCardEmployee"
         android:layout_width="wrap_content"

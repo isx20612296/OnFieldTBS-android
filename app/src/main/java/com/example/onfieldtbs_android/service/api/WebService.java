@@ -1,6 +1,7 @@
 package com.example.onfieldtbs_android.service.api;
 
 import com.example.onfieldtbs_android.dto.RequestComment;
+import com.example.onfieldtbs_android.dto.RequestIncidence;
 import com.example.onfieldtbs_android.models.Comment;
 import com.example.onfieldtbs_android.models.Company;
 import com.example.onfieldtbs_android.models.Employee;
@@ -15,7 +16,9 @@ import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -33,6 +36,9 @@ public interface WebService {
 
     @POST("incidences/{id}/comment")
     Call<Incidence>addCommentToIncidence(@Path("id") String id, @Body RequestComment comment);
+
+    @PUT("incidences/{id}")
+    Call<Incidence>updateIncidence(@Path("id") String id, @Body RequestIncidence incidence);
 
     // Level Service
     @GET("levels")
