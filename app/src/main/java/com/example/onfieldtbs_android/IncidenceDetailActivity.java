@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -49,6 +50,7 @@ import retrofit2.Response;
 public class IncidenceDetailActivity extends AppCompatActivity {
 
     private ActivityIncidenceDetailBinding binding;
+    private Technician selectedTechnician;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,16 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         String fullEmployeeName = incidence.getEmployee().getName() + " " + incidence.getEmployee().getLastname();
         String fullTechnicianName = incidence.getTechnician().getName() + " " + incidence.getTechnician().getLastname();
         String fullTechnicianUserName = "@" + incidence.getTechnician().getUser().getUsername();
+
+        // Get full technician info
+//        ApiClient.getApi().getTechnicianByUsername(incidence.getTechnician().getUser().getUsername()).enqueue((RetrofitCallBack<Technician>) (call, response) -> {
+//            selectedTechnician = response.body();
+//            if (selectedTechnician.getUser() == null){
+//                Log.e("TECH", "User null");
+//                return;
+//            }
+//            Log.e("TECH", selectedTechnician.getUser().getUsername());
+//        });
 
         // State and Priority buttons
         binding.detailState.setOnClickListener(view -> showAlertDialog("Estado", SpinnerInfo.detailStates, binding.detailState));
@@ -101,20 +113,16 @@ public class IncidenceDetailActivity extends AppCompatActivity {
 
         // Incidence Update
         binding.detailUpdateStatePriority.setOnClickListener(view -> {
-
             RequestIncidence requestIncidence = new RequestIncidence();
             requestIncidence.status = binding.detailState.getText().toString();
             requestIncidence.priority = binding.detailPriority.getText().toString();
-            Log.d("ID", incidence.getId().toString());
-            Log.d("STATE", requestIncidence.status);
-            Log.d("PRIORITY", requestIncidence.priority);
+//            requestIncidence.technician = selectedTechnician;
+//            Log.e("TECH", requestIncidence.technician.getName());
             ApiClient.getApi().updateIncidence(incidence.getId().toString(), requestIncidence).enqueue((RetrofitCallBack<Incidence>) (call, response) -> {
                 if (!response.isSuccessful()){
                     Log.e("Error update incidence", response.message());
                     return;
                 }
-                IncidencesViewModel incidencesViewModel = new ViewModelProvider(this).get(IncidencesViewModel.class);
-                incidencesViewModel.getLiveInfo();
             });
         });
 
@@ -199,9 +207,8 @@ public class IncidenceDetailActivity extends AppCompatActivity {
         builder.setItems(namesArray, (dialogInterface, i) -> {
             binding.detailTechnician.setText(namesArray[i]);
             binding.detailUsername.setText("@" + technicianReduced.get(i).getUser().getUsername());
-            // POST ACTIONS
 
-
+            ApiClient.getApi().getTechnicianByUsername(technicianReduced.get(i).getUser().getUsername()).enqueue((RetrofitCallBack<Technician>) (call, response) -> selectedTechnician = response.body());
             dialogInterface.dismiss();
         });
         AlertDialog alertDialog = builder.create();

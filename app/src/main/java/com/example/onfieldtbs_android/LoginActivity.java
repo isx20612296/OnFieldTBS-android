@@ -49,6 +49,10 @@ public class LoginActivity extends AppCompatActivity {
             binding.loginUsernameEditText.setText("nlopez");
             binding.loginPasswordEditText.setText("Nl0p3Z");
         });
+        binding.btnGonzalez.setOnClickListener(view -> {
+            binding.loginUsernameEditText.setText("mgonzalez");
+            binding.loginPasswordEditText.setText("Mg0nz@l3Z");
+        });
         // TESTING ################################################################
 
 
