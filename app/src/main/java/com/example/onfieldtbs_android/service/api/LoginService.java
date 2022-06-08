@@ -2,6 +2,7 @@ package com.example.onfieldtbs_android.service.api;
 
 import android.content.Context;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
