@@ -1,6 +1,7 @@
 package com.example.onfieldtbs_android.ui.views;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -24,8 +25,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.onfieldtbs_android.IncidenceDetailActivity;
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.databinding.FragmentMapBinding;
+import com.example.onfieldtbs_android.models.Incidence;
+import com.example.onfieldtbs_android.service.api.ApiClient;
+import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.service.google.GoogleLocationServices;
 import com.example.onfieldtbs_android.ui.viewModels.CompanyViewModel;
 import com.example.onfieldtbs_android.utils.permission.LocationPermissionHelper;
@@ -145,7 +150,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                 }
                 mMap.setOnInfoWindowClickListener(marker -> {
-                    Log.i("COMPANY ID", marker.getSnippet().split(":")[1]);
+                    String incidencesId = marker.getSnippet().split(":")[1];
+                    Intent intent = new Intent(requireContext(), IncidenceDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    ApiClient.getApi().getIncidenceById(incidencesId).enqueue((RetrofitCallBack<Incidence>) (call, response) -> {
+                        Incidence incidence = response.body();
+                        bundle.putSerializable("incidence", incidence);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    });
+
                 });
             });
         });
