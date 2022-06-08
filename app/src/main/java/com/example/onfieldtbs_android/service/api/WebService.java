@@ -1,5 +1,6 @@
 package com.example.onfieldtbs_android.service.api;
 
+import com.example.onfieldtbs_android.dto.CompanyDto;
 import com.example.onfieldtbs_android.dto.RequestComment;
 import com.example.onfieldtbs_android.dto.RequestIncidence;
 import com.example.onfieldtbs_android.models.Comment;
@@ -73,6 +74,9 @@ public interface WebService {
 
     @GET("companies/{id}")
     Call<Company> getCompanyById(@Path("id") String id);
+
+    @GET("companies/info")
+    Call<ModelList<CompanyDto>> getCompaniesInfo();
 
     // Employee Service+
     @GET("employees")

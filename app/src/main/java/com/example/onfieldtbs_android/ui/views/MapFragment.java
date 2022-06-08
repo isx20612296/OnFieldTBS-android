@@ -8,14 +8,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import android.widget.Toast;
 import com.example.onfieldtbs_android.R;
 import com.example.onfieldtbs_android.databinding.FragmentMapBinding;
 import com.example.onfieldtbs_android.service.google.GoogleLocationServices;
+import com.example.onfieldtbs_android.ui.viewModels.CompanyViewModel;
 import com.example.onfieldtbs_android.utils.permission.LocationPermissionHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,8 +41,12 @@ import java.util.Objects;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
+
+    private static final int MAX_DISTANCE_INCIDENCE = 2000; // 2 km
     private FragmentMapBinding binding;
     private GoogleMap mMap;
+    Location myCurrentLocation;
+    CompanyViewModel companyViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,18 +58,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        myCurrentLocation = new Location("");
+        companyViewModel =  new ViewModelProvider(requireActivity()).get(CompanyViewModel.class);
 
         // Maps
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         setMapFragment();
+
 
         // get the current location and create a marker in the map
         if(!isLocationPermissionGranted()){
             askForPermission();
         }
 
+        // Fetch de companies
+        companyViewModel.getCompaniesInfo();
     }
-
 
 
 
@@ -111,12 +123,40 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             .position(currentPosition)
                             .title("Tu posicion Actual")
                             .icon(BitmapDescriptorFactory.fromBitmap(getBitmapFromImage(getResources(), R.drawable.user_profile)))
-//                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-            );
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 18f));
+            ).showInfoWindow();
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 14f));
+            myCurrentLocation.setLatitude(latitude);
+            myCurrentLocation.setLongitude(longitude);
+            createMarkers(myCurrentLocation);
+        });
+    }
+    private void createMarkers( Location currentLocation){
+        companyViewModel.readCompanies().observe(getViewLifecycleOwner(), companiesInfo -> {
+            companiesInfo.forEach(comp ->{
+                double latitude = comp.getLocation().getLat();
+                double longitude = comp.getLocation().getLng();
+                LatLng position = new LatLng(latitude, longitude);
+                String firstIncidence = comp.getIncidencesList().stream().findFirst().orElse("Not Incidences");
+                if(createAndroidLocation(latitude, longitude).distanceTo(currentLocation) < MAX_DISTANCE_INCIDENCE){
+                    mMap.addMarker( new MarkerOptions()
+                            .position(position)
+                            .title(comp.getCompanyName())
+                            .snippet(comp.getAddress() + "\n:" + firstIncidence)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                }
+                mMap.setOnInfoWindowClickListener(marker -> {
+                    Log.i("COMPANY ID", marker.getSnippet().split(":")[1]);
+                });
+            });
         });
     }
 
+    private Location createAndroidLocation(double latitude, double longitude){
+        Location location = new Location("");
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        return location;
+    }
 
     public static Bitmap getBitmapFromImage(Resources res, int imageResource){
         Bitmap.Config conf = Bitmap.Config.ARGB_8888;
