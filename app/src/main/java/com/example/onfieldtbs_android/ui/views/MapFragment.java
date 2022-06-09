@@ -40,6 +40,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Objects;
@@ -65,6 +66,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
         myCurrentLocation = new Location("");
         companyViewModel =  new ViewModelProvider(requireActivity()).get(CompanyViewModel.class);
+
 
         // Maps
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -141,8 +143,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 double latitude = comp.getLocation().getLat();
                 double longitude = comp.getLocation().getLng();
                 LatLng position = new LatLng(latitude, longitude);
+                int distance = Math.round(createAndroidLocation(latitude, longitude).distanceTo(currentLocation));
                 String firstIncidence = comp.getIncidencesList().stream().findFirst().orElse("Not Incidences");
-                if(createAndroidLocation(latitude, longitude).distanceTo(currentLocation) < MAX_DISTANCE_INCIDENCE){
+                if(distance < MAX_DISTANCE_INCIDENCE){
                     mMap.addMarker( new MarkerOptions()
                             .position(position)
                             .title(comp.getCompanyName())
@@ -159,7 +162,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         intent.putExtras(bundle);
                         startActivity(intent);
                     });
-
                 });
             });
         });
