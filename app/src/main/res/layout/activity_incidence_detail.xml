@@ -44,8 +44,8 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/open_sans"
                 android:text="@string/detail_creation"
+                android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textColor="@color/secondaryDarkColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,7 +81,8 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/open_sans"
                 android:text="@string/detail_closed"
-                android:textColor="@color/secondaryDarkColor"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailCreation" />
 
@@ -96,7 +97,7 @@
                 android:paddingBottom="0dp"
                 android:text="En progreso"
                 android:textAllCaps="false"
-                android:textColor="@color/secondaryDarkColor"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:visibility="visible"

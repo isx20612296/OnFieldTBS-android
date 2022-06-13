@@ -39,23 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginUsernameEditText.setText("");
         binding.loginPasswordEditText.setText("");
 
-
-        // TESTING ################################################################
-        binding.btnGarcia.setOnClickListener(view -> {
-            binding.loginUsernameEditText.setText("jgarcia");
-            binding.loginPasswordEditText.setText("Jg@rc1A");
-        });
-        binding.btnLopez.setOnClickListener(view -> {
-            binding.loginUsernameEditText.setText("nlopez");
-            binding.loginPasswordEditText.setText("Nl0p3Z");
-        });
-        binding.btnGonzalez.setOnClickListener(view -> {
-            binding.loginUsernameEditText.setText("mgonzalez");
-            binding.loginPasswordEditText.setText("Mg0nz@l3Z");
-        });
-        // TESTING ################################################################
-
-
         // Button Listener
         binding.loginButton.setOnClickListener(view -> {
 
@@ -79,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
             
             // Go to Main Activity
-            // TODO(Retrofit)
             LoginService service = new LoginService(getApplicationContext());
 
             service.login(username, password, response -> {
@@ -94,10 +76,6 @@ public class LoginActivity extends AppCompatActivity {
             });
 
         });
-    }
-
-    private void editPreferences() {
-
     }
 
     private void makeToast(String message){
