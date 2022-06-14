@@ -129,7 +129,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             mMap.addMarker(new MarkerOptions()
                             .position(currentPosition)
                             .title("Tu posicion Actual")
-                            .icon(BitmapDescriptorFactory.fromBitmap(getBitmapFromImage(getResources(), R.drawable.user_profile)))
+                            .icon(BitmapDescriptorFactory.fromBitmap(getBitmapFromImage(getResources(), R.drawable.logo_onfield)))
             ).showInfoWindow();
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 14f));
             myCurrentLocation.setLatitude(latitude);
@@ -140,29 +140,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void createMarkers( Location currentLocation){
         companyViewModel.readCompanies().observe(getViewLifecycleOwner(), companiesInfo -> {
             companiesInfo.forEach(comp ->{
-                double latitude = comp.getLocation().getLat();
-                double longitude = comp.getLocation().getLng();
-                LatLng position = new LatLng(latitude, longitude);
-                int distance = Math.round(createAndroidLocation(latitude, longitude).distanceTo(currentLocation));
-                String firstIncidence = comp.getIncidencesList().stream().findFirst().orElse("Not Incidences");
-                if(distance < MAX_DISTANCE_INCIDENCE){
-                    mMap.addMarker( new MarkerOptions()
-                            .position(position)
-                            .title(comp.getCompanyName())
-                            .snippet(comp.getAddress() + "\n:" + firstIncidence)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                }
-                mMap.setOnInfoWindowClickListener(marker -> {
-                    String incidencesId = marker.getSnippet().split(":")[1];
-                    Intent intent = new Intent(requireContext(), IncidenceDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    ApiClient.getApi().getIncidenceById(incidencesId).enqueue((RetrofitCallBack<Incidence>) (call, response) -> {
-                        Incidence incidence = response.body();
-                        bundle.putSerializable("incidence", incidence);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
+                if (!(comp.getIncidencesList().size() == 0)) {
+                    double latitude = comp.getLocation().getLat();
+                    double longitude = comp.getLocation().getLng();
+                    LatLng position = new LatLng(latitude, longitude);
+                    int distance = Math.round(createAndroidLocation(latitude, longitude).distanceTo(currentLocation));
+                    String firstIncidence = comp.getIncidencesList().stream().findFirst().orElse("Not Incidences");
+                    if (distance < MAX_DISTANCE_INCIDENCE) {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(position)
+                                .title(comp.getCompanyName())
+                                .snippet(comp.getAddress() + "\n:" + firstIncidence)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    }
+                    mMap.setOnInfoWindowClickListener(marker -> {
+                        if (!marker.getTitle().equals("Tu posicion Actual")) {
+                            String incidencesId = marker.getSnippet().split(":")[1];
+                            Intent intent = new Intent(requireContext(), IncidenceDetailActivity.class);
+                            Bundle bundle = new Bundle();
+                            ApiClient.getApi().getIncidenceById(incidencesId).enqueue((RetrofitCallBack<Incidence>) (call, response) -> {
+                                Incidence incidence = response.body();
+                                bundle.putSerializable("incidence", incidence);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            });
+                        }
                     });
-                });
+                }
             });
         });
     }
@@ -188,4 +192,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return bmp;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Fetch de companies
+        companyViewModel.getCompaniesInfo();
+    }
 }

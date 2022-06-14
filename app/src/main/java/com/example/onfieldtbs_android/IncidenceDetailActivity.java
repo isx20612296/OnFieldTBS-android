@@ -1,6 +1,7 @@
 package com.example.onfieldtbs_android;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
@@ -29,6 +30,7 @@ import com.example.onfieldtbs_android.service.api.Login;
 import com.example.onfieldtbs_android.service.api.Model.ModelList;
 import com.example.onfieldtbs_android.service.api.RetrofitCallBack;
 import com.example.onfieldtbs_android.ui.viewModels.CommentsViewModel;
+import com.example.onfieldtbs_android.ui.viewModels.CompanyViewModel;
 import com.example.onfieldtbs_android.ui.viewModels.IncidencesViewModel;
 import com.example.onfieldtbs_android.ui.views.IncidenceFragment;
 import com.example.onfieldtbs_android.utils.SpinnerInfo;
