@@ -126,6 +126,7 @@ public class MyIncidenceFragment extends Fragment {
 
     private void replaceTable(String state, String priority, Predicate<Incidence> searchFilter, LiveInfo liveInfo) {
         IncidenceTableFragment incidenceTableFragment = new IncidenceTableFragment(liveInfo.userIncidences.stream()
+                .filter(Filters.byNotState("Cerrada"))
                 .filter(Filters.byState(state))
                 .filter(Filters.byPriority(priority))
                 .filter(searchFilter)

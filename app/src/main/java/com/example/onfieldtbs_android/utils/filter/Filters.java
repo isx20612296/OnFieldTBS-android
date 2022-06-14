@@ -19,6 +19,10 @@ public class Filters {
         return incidence -> incidence.getStatus().equals(state);
     }
 
+    public static Predicate<Incidence> byNotState(String state) {
+        return incidence -> !incidence.getStatus().equals(state);
+    }
+
     public static Predicate<Incidence> byPriority(String priority) {
         if (priority.equals("Prioridad")) return incidence -> true;
         return incidence -> incidence.getPriority().equals(priority);
